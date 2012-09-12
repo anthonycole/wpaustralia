@@ -1,8 +1,8 @@
 /* BuddyPress Honeypot styles */
-#basic-details-honeypot-section.register-section {
+#basic-details-thepot-section.register-section {
 	float: right;
     width: 48%;
 }
-.honeypot_container {
+.thepot_container {
 	display: none;
 }
