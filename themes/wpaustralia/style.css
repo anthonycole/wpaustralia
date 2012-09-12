@@ -14,7 +14,7 @@ Tags: buddypress, two-column, grey, dark
 }
 #nav .sfhover ul li,
 #nav :hover ul li {
-	width: 200px;
+	width: 202px;
 }
 .like,
 .unlike,
@@ -91,4 +91,16 @@ a.spam-activity-comment {
 .bpm-no-images .bpm-inner-text {
 	padding-left: 20px;
 	background: url(../../plugins/bp-moderation/css/sprite.png) no-repeat;
+}
+#nav ul {
+	border: 0;
+}
+ul#nav ul li {
+	margin-bottom: 0;
+}
+ul#nav ul li:nth-child(even) {
+	margin-left: 0;
+}
+#navigation ul#nav li a {
+	border-radius: 0;
 }
