@@ -4,13 +4,13 @@ Contributors: GDragoN
 
 Donate link: http://www.dev4press.com/
 
-Version: 1.8.2
+Version: 1.8.3
 
 Tags: bbpress, attachments, gdragon, dev4press, upload, forum, topic, reply, media library, limit, meta
 
 Requires at least: 3.2
 
-Tested up to: 3.4
+Tested up to: 3.5
 
 Stable tag: trunk
 
@@ -140,13 +140,17 @@ No. Plugin requires bbPress 2.0 or higher plugin.
 
 * Serbian
 
+* Italian
+
+* Portuguese
+
+* German: David Decker - http://deckerweb.de/
+
 * French: Marie Bodson - http://mariebodson.com/
 
 * Polish: Dawid Karabin - http://www.hinok.net/
 
 * Dutch: Wouter van Vliet - http://www.interpotential.com/
-
-* German: David Decker - http://deckerweb.de/
 
 * Spanish: Jhonathan Arroyo - http://www.siswer.com/
 
@@ -155,6 +159,14 @@ No. Plugin requires bbPress 2.0 or higher plugin.
 
 
 == Changelog ==
+
+= 1.8.3 =
+
+* Added Italian translation
+
+* Updated several translations
+
+
 
 = 1.8.2 =
 
@@ -370,9 +382,9 @@ No. Plugin requires bbPress 2.0 or higher plugin.
 
 == Upgrade Notice ==
 
-= 1.8.1 =
+= 1.8.3 =
 
-Added Portuguese translation.
+Added Italian translation. Updated several translations.
 
 
 
