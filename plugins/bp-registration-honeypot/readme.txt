@@ -32,11 +32,14 @@ There are no options for this plugin. It just works!
 
 = How many spam bots has this plugin stopped? =
 
-We figure that we should add some simple stats for this in version 0.4 because we realise that stats are needed!
+We figure that we should add some simple stats for this in version 0.5 because we realise that stats are needed!
 
 == Screenshots ==
 
 == Changelog ==
+
+= 0.4 =
+* Changed the functionality of the plugin to fake a little somethin' somethin'
 
 = 0.3 =
 * Renamed divs and id's to not contain the word 'honeypot'

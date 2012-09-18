@@ -3,7 +3,7 @@
  * Plugin Name: BuddyPress Registration Honeypot
  * Plugin URI: http://www.wpaustralia.org
  * Description: This BuddyPress plugin adds an input field on the registration that is hidden for normal users and will be filled out by bots. If the field contains data then the registration will fail. If it's empty then the registration will continue. This plugin has no options because options are overrated!
- * Version: 0.3
+ * Version: 0.4
  * Author: Bronson Quick, Japheth Thomson
  * Author URI: http://www.sennza.com.au/
  * License: GPL2
@@ -14,7 +14,7 @@
  *
  * @since 0.2
  */
-define( 'BUDDYPRESS_HONEYPOT_REGISTRATION_VERSION', '0.3' );
+define( 'BUDDYPRESS_HONEYPOT_REGISTRATION_VERSION', '0.4' );
 
 $sennza_buddypress_registration_thepot = new Sennza_BuddyPress_Registration_HoneyPot();
 
@@ -34,6 +34,7 @@ class Sennza_BuddyPress_Registration_HoneyPot {
 		add_action( 'wp_enqueue_scripts', array( $this, 'sennza_buddypress_registration_thepot_css' ) );
 		add_action( 'bp_after_account_details_fields', array( $this , 'sennza_buddypress_registration_thepot') );
 		add_action( 'bp_signup_validate', array( $this , 'sennza_buddypress_registration_thepot_validation' ) );
+		add_filter( 'gettext', array( $this , 'sennza_buddypress_credits_removal') );
 	}
 
 	/**
@@ -57,15 +58,16 @@ class Sennza_BuddyPress_Registration_HoneyPot {
 	}
 
 	/**
-	 * We need to add a signup error to the $bp global so that the registration process fails
+	 * Fake a successful sign up which will bypass the actual registration process
 	 *
-	 * @since 0.2
+	 * @since 0.4
 	 * @global array $bp
 	 */
 	public function sennza_buddypress_registration_thepot_validation() {
 		global $bp;
 		if ( ! empty( $_POST['signup_thepot'] ) )
-			$bp->signup->errors['signup_thepot'] = apply_filters( 'sennza_thepot_error', __( 'Looks like you are a spammer' ) );
+			//Fake it 'til we make it!
+			$bp->signup->step = 'completed-confirmation';
 	}
 
 	/**
@@ -85,4 +87,5 @@ class Sennza_BuddyPress_Registration_HoneyPot {
 			wp_enqueue_style( 'honeypot-css' );
 		}
 	}
+
 }
