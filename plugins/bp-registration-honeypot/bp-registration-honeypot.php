@@ -71,6 +71,13 @@ class Sennza_BuddyPress_Registration_HoneyPot {
 	}
 
 	/**
+	 * Need to add a gettext function to remove the Proudly powered By WordPress and BuddyPress footer
+	 */
+	public function sennza_buddypress_credits_removal(){
+		//TODO: 'Quick' function to remove the default credits as bots search for that
+	}
+
+	/**
 	 * Enqueues the CSS for this plugin.
 	 *
 	 * @since 0.2
