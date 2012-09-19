@@ -104,3 +104,11 @@ ul#nav ul li:nth-child(even) {
 #navigation ul#nav li a {
 	border-radius: 0;
 }
+
+#bbpress-forums .bbp-reply-content li {
+	list-style: decimal;
+}
+
+#bbpress-forums .bbp-reply-content ol {
+	margin: 0 0 18px 1.5em;
+}
