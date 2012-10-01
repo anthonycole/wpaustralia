@@ -387,9 +387,14 @@ function bp_like_add_user_like( $item_id = '', $type = 'activity' ) {
 		
 		/* Publish to the activity stream if we're allowed to. */
 		if ( bp_like_get_settings( 'post_to_activity_stream' ) == 1 ) {
-		
+
 			$activity = bp_activity_get_specific( array( 'activity_ids' => $item_id, 'component' => 'bp-like' ) );
 			$author_id = $activity['activities'][0]->user_id;
+			if ( !$author_id ) {
+				/* Temp fix for liking of threaded comments */
+				$activity = bp_activity_get_specific( array( 'activity_ids' => bp_get_activity_comment_id(), 'component' => 'bp-like' ) );
+				$author_id = $activity['activities'][0]->user_id;
+			}
 	
 			if ($user_id == $author_id)
 				$action = bp_like_get_text( 'record_activity_likes_own' );

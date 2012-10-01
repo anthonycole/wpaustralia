@@ -30,7 +30,7 @@ if ( is_plugin_active( 'buddypress-like/bp-like.php' )) {
 
 		if ( $type == 'activity' ) :
 
-			$activity      = bp_activity_get_specific( array( 'activity_ids' => bp_get_activity_id() ) );
+			$activity = bp_activity_get_specific( array( 'activity_ids' => bp_get_activity_comment_id() ) );
 			$activity_type = $activity['activities'][0]->type;
 
 			if ( is_user_logged_in() && $activity_type !== 'activity_liked' ) :
