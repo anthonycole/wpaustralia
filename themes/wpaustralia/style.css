@@ -115,3 +115,46 @@ ul#nav ul li:nth-child(even) {
 #bbpress-forums .bbp-reply-content ol {
 	margin: 0 0 18px 1.5em;
 }
+
+@media all and (min-width: 0px) and (max-width: 600px) {
+	div.bbp-topic-header,
+	div.bbp-reply-header,
+	li.bbp-body div.hentry {
+		padding-left: 15px;
+	}
+
+	li.bbp-header .bbp-reply-author {
+		display: none;
+	}
+
+	#bbpress-forums div.bbp-topic-author .bbp-author-role,
+	#bbpress-forums div.bbp-reply-author .bbp-author-role {
+		padding-bottom: 1px;
+	}
+
+	#bbpress-forums div.bbp-topic-content,
+	#bbpress-forums div.bbp-reply-content,
+	#bbpress-forums div.bbp-topic-author a.bbp-author-name,
+	#bbpress-forums div.bbp-reply-author a.bbp-author-name,
+	#bbpress-forums li.bbp-header .bbp-topic-content,
+	#bbpress-forums li.bbp-footer .bbp-topic-content,
+	#bbpress-forums li.bbp-header .bbp-reply-content,
+	#bbpress-forums li.bbp-footer .bbp-reply-content {
+		margin-left: 0;
+	}
+
+	#bbpress-forums div.bbp-topic-author,
+	#bbpress-forums div.bbp-reply-author {
+		text-align: left;
+		width: 95px;
+	}
+
+	blockquote {
+		padding: 0;
+	}
+
+	span.bbp-admin-links {
+		clear: both;
+		float: left;
+	}
+}
