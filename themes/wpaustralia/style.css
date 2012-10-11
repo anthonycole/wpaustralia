@@ -123,6 +123,13 @@ ul#nav ul li:nth-child(even) {
 		padding-left: 15px;
 	}
 
+	li.bbp-header div.bbp-topic-content span#subscription-toggle,
+	li.bbp-header div.bbp-topic-content span#favorite-toggle,
+	li.bbp-header div.bbp-reply-content span#subscription-toggle,
+	li.bbp-header div.bbp-reply-content span#favorite-toggle {
+		float: none;
+	}
+
 	li.bbp-header .bbp-reply-author {
 		display: none;
 	}
