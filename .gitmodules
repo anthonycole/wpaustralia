@@ -19,3 +19,6 @@
 [submodule "plugins/facebook"]
 	path = plugins/facebook
 	url = git://github.com/facebook/wordpress.git
+[submodule "plugins/bbpress-reply-by-email"]
+	path = plugins/bbpress-reply-by-email
+	url = git://github.com/rmccue/bbPress-Reply-by-Email.git
