@@ -36,12 +36,14 @@ class Meetup_Oz_Oembed {
 			'http://www.wpsydney.com.au/',
 			'http://www.wpmelb.org/',
 			'http://www.wptas.org/',
+			'http://www.wpcanberra.com.au/',
 		);
 		$replace = array(
 			'http://www.meetup.com/WordPress-Brisbane/',
 			'http://www.meetup.com/WordPress-Sydney/',
 			'http://www.meetup.com/WordPress-Melbourne/',
-			'http://www.meetup.com/WordPress-Tasmania/'
+			'http://www.meetup.com/WordPress-Tasmania/',
+			'http://www.meetup.com/WordPress-Canberra/',
 		);
 		$content =  str_replace( $search, $replace, $content );
 		return $content;
