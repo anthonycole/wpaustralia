@@ -116,6 +116,10 @@ ul#nav ul li:nth-child(even) {
 	margin: 0 0 18px 1.5em;
 }
 
+#meetup_oembed {
+	margin-bottom: 10px !important;
+}
+
 @media all and (min-width: 0px) and (max-width: 600px) {
 	div.bbp-topic-header,
 	div.bbp-reply-header,
