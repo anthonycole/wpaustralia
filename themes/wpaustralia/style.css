@@ -120,6 +120,10 @@ ul#nav ul li:nth-child(even) {
 	margin-bottom: 10px !important;
 }
 
+h1, h2, h3, h4, h5, h6 {
+	line-height: 1.3em;
+}
+
 @media all and (min-width: 0px) and (max-width: 600px) {
 	div.bbp-topic-header,
 	div.bbp-reply-header,
