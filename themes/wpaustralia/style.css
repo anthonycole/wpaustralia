@@ -19,6 +19,11 @@ Tags: buddypress, two-column, grey, dark
 #nav :hover ul li {
 	width: 202px;
 }
+
+div#container {
+	position: inherit;
+}
+
 .like,
 .unlike,
 .view-likes,
