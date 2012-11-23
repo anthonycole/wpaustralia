@@ -3,7 +3,7 @@
  * Plugin Name: BuddyPress Registration Honeypot
  * Plugin URI: http://www.wpaustralia.org
  * Description: This BuddyPress plugin adds an input field on the registration that is hidden for normal users and will be filled out by bots. If the field contains data then the registration will fail. If it's empty then the registration will continue. This plugin has no options because options are overrated!
- * Version: 0.4
+ * Version: 0.5
  * Author: Bronson Quick, Japheth Thomson
  * Author URI: http://www.sennza.com.au/
  * License: GPL2
@@ -14,7 +14,7 @@
  *
  * @since 0.2
  */
-define( 'BUDDYPRESS_HONEYPOT_REGISTRATION_VERSION', '0.4' );
+define( 'BUDDYPRESS_HONEYPOT_REGISTRATION_VERSION', '0.5' );
 
 $sennza_buddypress_registration_thepot = new Sennza_BuddyPress_Registration_HoneyPot();
 
@@ -47,7 +47,8 @@ class Sennza_BuddyPress_Registration_HoneyPot {
 		<?php //Lets wrap this and hide it with CSS ?>
 		<div id="basic-details-thepot-section" class="thepot_container register-section">
 			<?php //Lets give it a dummy label that spam bots will think is real ?>
-			<label for="signup_thepot"><?php _e( 'Phone' ); ?></label>
+			<?php $labels = self::sennza_get_honeypot_labels(); ?>
+			<label for="signup_thepot"><?php echo $labels[rand( 0, 3 )] ?></label>
 			<?php //I can't see us needing to output errors but I'll add an action here in case accessibility issues come up! ?>
 			<?php do_action( 'sennza_buddypress_registration_thepot_errors' ); ?>
 			<input type="text" name="signup_thepot" id="signup_thepot" value="" />
@@ -94,6 +95,22 @@ class Sennza_BuddyPress_Registration_HoneyPot {
 			);
 			wp_enqueue_style( 'honeypot-css' );
 		}
+	}
+
+	/**
+	 * Get a random label to try to confuse the spambots
+	 *
+	 * @since 0.5
+	 */
+
+	public function sennza_get_honeypot_labels(){
+		/* This idea was taken from Gravity Forms http://www.gravityforms.com/ cause Carl and the boys have nailed their honeypot! */
+		return array(
+			"Name",
+			"Email",
+			"Phone",
+			"Comments",
+		);
 	}
 
 }
