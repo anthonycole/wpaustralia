@@ -22,6 +22,3 @@
 [submodule "plugins/bbpress-reply-by-email"]
 	path = plugins/bbpress-reply-by-email
 	url = git://github.com/rmccue/bbPress-Reply-by-Email.git
-[submodule "plugins/wp-stop-forum-spam"]
-	path = plugins/wp-stop-forum-spam
-	url = git@github.com:benmay/wpStopForumSpam.git
