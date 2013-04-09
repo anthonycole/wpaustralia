@@ -61,6 +61,9 @@ function bp_get_default_options() {
 		// Allow comments on blog and forum activity items
 		'bp-disable-blogforum-comments'   => true,
 
+		// The ID for the current theme package.
+		'_bp_theme_package_id'            => 'legacy',
+
 		/** Groups ************************************************************/
 
 		// @todo Move this into the groups component
@@ -290,7 +293,7 @@ function bp_core_get_root_options() {
 	// Do some magic to get all the root blog options in 1 swoop
 	$blog_options_keys      = "'" . join( "', '", (array) $root_blog_option_keys ) . "'";
 	$blog_options_table	    = bp_is_multiblog_mode() ? $wpdb->options : $wpdb->get_blog_prefix( bp_get_root_blog_id() ) . 'options';
-	$blog_options_query     = $wpdb->prepare( "SELECT option_name AS name, option_value AS value FROM {$blog_options_table} WHERE option_name IN ( {$blog_options_keys} )" );
+	$blog_options_query     = "SELECT option_name AS name, option_value AS value FROM {$blog_options_table} WHERE option_name IN ( {$blog_options_keys} )";
 	$root_blog_options_meta = $wpdb->get_results( $blog_options_query );
 
 	// On Multisite installations, some options must always be fetched from sitemeta
@@ -521,4 +524,15 @@ function bp_is_akismet_active( $default = true ) {
 	return (bool) apply_filters( 'bp_is_akismet_active', (bool) bp_get_option( '_bp_enable_akismet', $default ) );
 }
 
-?>
+/**
+ * Get the current theme package ID
+ *
+ * @since BuddyPress (1.7)
+ *
+ * @param $default string Optional. Default value 'default'
+ * @uses get_option() To get the subtheme option
+ * @return string ID of the subtheme
+ */
+function bp_get_theme_package_id( $default = 'legacy' ) {
+	return apply_filters( 'bp_get_theme_package_id', get_option( '_bp_theme_package_id', $default ) );
+}
