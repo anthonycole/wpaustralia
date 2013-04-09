@@ -36,12 +36,12 @@ function rfp_admin() {
 
 		<?php if ( isset($updated) ) : ?><div id='message' class='updated fade'><p>Settings Updated</p></div><?php endif; ?>
 
-		<form action="<?php echo site_url() . '/wp-admin/admin.php?page=rfp_admin' ?>" name="rfp-settings-form" id="rfp-settings-form" method="post">
+		<form action="admin.php?page=rfp_admin" name="rfp-settings-form" id="rfp-settings-form" method="post">
 
 			<h3>Post Ratings</h3>
 			
-			Helper text that shows to the left of thumbs up and down buttons: <input name="rfp_help_text" type="text" value="<?php echo attribute_escape( get_option( 'rfp_help_text' ) ); ?>" size="30" /><br>
-			Text to show for closed topics: <input name="rfp_help_text_closed" type="text" value="<?php echo attribute_escape( get_option( 'rfp_help_text_closed' ) ); ?>" size="30" />
+			Helper text that shows to the left of thumbs up and down buttons: <input name="rfp_help_text" type="text" value="<?php echo esc_attr( get_option( 'rfp_help_text' ) ); ?>" size="30" /><br>
+			Text to show for closed topics: <input name="rfp_help_text_closed" type="text" value="<?php echo esc_attr( get_option( 'rfp_help_text_closed' ) ); ?>" size="30" />
 			<br>
 			<br>
 			
@@ -54,13 +54,13 @@ function rfp_admin() {
 			Set any level to 0 to disable that level. <br>
 			<br>
 			Base: &nbsp;&nbsp; <input type="text" value="0" size="5" readonly="1" />  <span class='rfp-karma'>points</span><br>
-			Level 1 <input name="rfp_k1" type="text" value="<?php echo attribute_escape( $rfp_k[0] ); ?>" size="5" /> <span class='rfp-karma rfp-k1'>points</span><br>
-			Level 2 <input name="rfp_k2" type="text" value="<?php echo attribute_escape( $rfp_k[1] ); ?>" size="5" /> <span class='rfp-karma rfp-k2'>points</span><br>
-			Level 3 <input name="rfp_k3" type="text" value="<?php echo attribute_escape( $rfp_k[2] ); ?>" size="5" /> <span class='rfp-karma rfp-k3'>points</span><br>
-			Level 4 <input name="rfp_k4" type="text" value="<?php echo attribute_escape( $rfp_k[3] ); ?>" size="5" /> <span class='rfp-karma rfp-k4'>points</span><br>
+			Level 1 <input name="rfp_k1" type="text" value="<?php echo esc_attr( $rfp_k[0] ); ?>" size="5" /> <span class='rfp-karma rfp-k1'>points</span><br>
+			Level 2 <input name="rfp_k2" type="text" value="<?php echo esc_attr( $rfp_k[1] ); ?>" size="5" /> <span class='rfp-karma rfp-k2'>points</span><br>
+			Level 3 <input name="rfp_k3" type="text" value="<?php echo esc_attr( $rfp_k[2] ); ?>" size="5" /> <span class='rfp-karma rfp-k3'>points</span><br>
+			Level 4 <input name="rfp_k4" type="text" value="<?php echo esc_attr( $rfp_k[3] ); ?>" size="5" /> <span class='rfp-karma rfp-k4'>points</span><br>
 			<br>
 			
-			Karma points label for Members page: <input name="rfp_karma_label" type="text" value="<?php echo attribute_escape( get_option( 'rfp_karma_label' ) ); ?>" size="30" />
+			Karma points label for Members page: <input name="rfp_karma_label" type="text" value="<?php echo esc_attr( get_option( 'rfp_karma_label' ) ); ?>" size="30" />
 			<br>
 			<br>
 
@@ -85,15 +85,15 @@ function rfp_admin() {
 			Default values are: superboost: 25, boost: 10, diminish: -3 and hide: -6. <br>
 			Set any level to 0 to disable that level. <br>
 			<br>
-			Super Boost: <input name="rfp_superboost" type="text" value="<?php echo attribute_escape( get_option( 'rfp_superboost' )); ?>" size="5" /> <span class='rfp-admin rfp-superboost'> great post content </span><br>
+			Super Boost: <input name="rfp_superboost" type="text" value="<?php echo esc_attr( get_option( 'rfp_superboost' )); ?>" size="5" /> <span class='rfp-admin rfp-superboost'> great post content </span><br>
 			<br>
-			Boost: <input name="rfp_boost" type="text" value="<?php echo attribute_escape( get_option( 'rfp_boost' )); ?>" size="5" /> <span class='rfp-admin rfp-boost'> good post content </span><br>
+			Boost: <input name="rfp_boost" type="text" value="<?php echo esc_attr( get_option( 'rfp_boost' )); ?>" size="5" /> <span class='rfp-admin rfp-boost'> good post content </span><br>
 			<br>
 			Normal: <input type="text" value="0" size="5" readonly="1"/> <span class='rfp-admin'> normal post content </span><br>
 			<br>
-			Diminish <input name="rfp_diminish" type="text" value="<?php echo attribute_escape( get_option( 'rfp_diminish' )); ?>" size="5" /> <span class='rfp-admin rfp-diminish'> poor post content </span><br>
+			Diminish <input name="rfp_diminish" type="text" value="<?php echo esc_attr( get_option( 'rfp_diminish' )); ?>" size="5" /> <span class='rfp-admin rfp-diminish'> poor post content </span><br>
 			<br>
-			Hide <input name="rfp_hide" type="text" value="<?php echo attribute_escape( get_option( 'rfp_hide' )); ?>" size="5" /> 
+			Hide <input name="rfp_hide" type="text" value="<?php echo esc_attr( get_option( 'rfp_hide' )); ?>" size="5" /> 
 			
 			<span class='rfp-admin rfp-hide'> <span class="rfp-admin-content">very bad post content</span></span><br>
 			

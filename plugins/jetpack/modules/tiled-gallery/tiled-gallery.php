@@ -9,6 +9,7 @@ class Jetpack_Tiled_Gallery {
 	public function __construct() {
 		add_action( 'admin_init', array( $this, 'settings_api_init' ) );
 		add_filter( 'jetpack_gallery_types', array( $this, 'jetpack_gallery_types' ), 9 );
+		add_filter( 'jetpack_default_gallery_type', array( $this, 'jetpack_default_gallery_type' ) );
 	}
 
 	public function tiles_enabled() {
@@ -135,7 +136,7 @@ class Jetpack_Tiled_Gallery {
 
 					$img_src = add_query_arg( array( 'w' => $image->width, 'h' => $image->height ), $orig_file );
 
-					$output .= '<div class="tiled-gallery-item ' . esc_attr( $size ) . '"><a href="' . esc_url( $link ) . '"><img ' . $this->generate_carousel_image_args( $image ) . ' src="' . esc_url( $img_src ) . '" width="' . esc_attr( $image->width ) . '" height="' . esc_attr( $image->height ) . '" align="left" title="' . esc_attr( $image_title ) . '" /></a>';
+					$output .= '<div class="tiled-gallery-item tiled-gallery-item-' . esc_attr( $size ) . '"><a href="' . esc_url( $link ) . '"><img ' . $this->generate_carousel_image_args( $image ) . ' src="' . esc_url( $img_src ) . '" width="' . esc_attr( $image->width ) . '" height="' . esc_attr( $image->height ) . '" align="left" title="' . esc_attr( $image_title ) . '" /></a>';
 
 					if ( $this->atts['grayscale'] == true ) {
 						$img_src_grayscale = jetpack_photon_url( $img_src, array( 'filter' => 'grayscale' ) );
@@ -297,10 +298,22 @@ class Jetpack_Tiled_Gallery {
 	 * Media UI integration
 	 */
 	function jetpack_gallery_types( $types ) {
-		$types['rectangular'] = __( 'Tiles', 'jetpack' );
+		if ( get_option( 'tiled_galleries' ) && isset( $types['default'] ) ) {
+			// Tiled is set as the default, meaning that type='default'
+			// will still display the mosaic.
+			$types['thumbnails'] = $types['default'];
+			unset( $types['default'] );
+		}
+
+		$types['rectangular'] = __( 'Tiled Mosaic', 'jetpack' );
 		$types['square'] = __( 'Square Tiles', 'jetpack' );
 		$types['circle'] = __( 'Circles', 'jetpack' );
+
 		return $types;
+	}
+
+	function jetpack_default_gallery_type( $default ) {
+		return ( get_option( 'tiled_galleries' ) ? 'rectangular' : 'default' );
 	}
 
 	/**

@@ -3,10 +3,10 @@
 Plugin Name: BuddyPress Rate Forum Posts
 Plugin URI: http://wordpress.org/extend/plugins/buddypress-rate-forum-posts/
 Description: This plugin allows rating of BuddyPress forum posts and user karma. 
-Version: 1.6.6
-Revision Date: October 11, 2011
+Version: 1.7
+Revision Date: March 25, 2013
 Requires at least: WP 2.9.1, BuddyPress 1.2.4
-Tested up to: WP 3.3, BuddyPress 1.5.2
+Tested up to: WP 3.5.1, BuddyPress 1.6.5
 License: GNU General Public License 2.0 (GPL) http://www.gnu.org/licenses/gpl.html
 Author: Deryk Wenaus
 Author URI: http://www.bluemandala.com
@@ -39,8 +39,7 @@ register_activation_hook( __FILE__, 'rfp_activate' );
 function rfp_init() {
 	global $bp;
 
-	//if ( bp_is_group() && bp_is_action_variable('topic') ) { // the bp 1.5 way is not compat with the old way
-	if ( $bp->current_component == BP_GROUPS_SLUG && $bp->action_variables[0] == 'topic') {
+	if ( $bp->current_component == BP_GROUPS_SLUG && isset( $bp->action_variables[0] ) && $bp->action_variables[0] == 'topic') {
 		wp_enqueue_script('rfp_rating_forum_posts', WP_PLUGIN_URL.'/buddypress-rate-forum-posts/js/rating.js', array('jquery') );
 	}
 }
@@ -121,11 +120,11 @@ function rfp_save_rating() {
 			echo '|Thank you';
 			rfp_update_user_rating_history( $rater, $post_id, $direction );
 			rfp_update_post_author_karma( $post_id, $direction );
-			
 		} else {
 			echo rfp_get_post_rating_signed( $post_id ) . '|' . $user_rated;
 		}
 	}
+	die;
 }
 add_action( 'wp_ajax_rfp_rate', 'rfp_save_rating' );
 
@@ -157,7 +156,7 @@ function rfp_get_user_rated_post( $rater, $post_id ) {
 		return false; // site admins can rate as much as they like
 	
 	//posters can't rate themselves.
-	if ( $wpdb->get_var( $wpdb->prepare( "SELECT post_id FROM {$bbdb->posts} WHERE poster_id = {$rater} AND post_id = {$post_id}" ) ) )
+	if ( $wpdb->get_var( $wpdb->prepare( "SELECT post_id FROM {$bbdb->posts} WHERE poster_id = %d AND post_id = %d", $rater, $post_id ) ) )
 		return 'This is your post';	
 	
 	//see if it's already been rated
@@ -186,7 +185,7 @@ function rfp_get_post_rating( $id ) {
 
 	do_action( 'bbpress_init' );
 		
-	$result = $wpdb->get_var( $wpdb->prepare( "SELECT meta_value FROM {$bbdb->meta} WHERE object_type = 'bb_post' AND meta_key = 'rfp_rating' AND object_id = {$id}" ) );
+	$result = $wpdb->get_var( $wpdb->prepare( "SELECT meta_value FROM {$bbdb->meta} WHERE object_type = 'bb_post' AND meta_key = 'rfp_rating' AND object_id = %d", $id ) );
 	
 	return $result;
 }
@@ -198,15 +197,24 @@ function rfp_update_post_rating( $id, $direction ) {
 	global $wpdb, $rfp, $bbdb;
 	
 	do_action( 'bbpress_init' );
-	
+
+	$value = 0;
 	if ( $direction == 'pos' ) $value = 1;
 	elseif ( $direction == 'neg' ) $value = -1;
 
-	$rating = $wpdb->get_row( $wpdb->prepare( "SELECT meta_id, meta_value FROM {$bbdb->meta} WHERE object_type = 'bb_post' AND meta_key = 'rfp_rating' AND object_id = {$id}" ) );
-		
-	$wpdb->query( $wpdb->prepare( "REPLACE INTO {$bbdb->meta} ( meta_id, object_type, object_id, meta_key, meta_value ) VALUES (%d, %s, %d, %s, %d )", $rating->meta_id, 'bb_post', $id, 'rfp_rating', $rating->meta_value + $value ) );
+	$rating = $wpdb->get_row( $wpdb->prepare( "SELECT meta_id, meta_value FROM {$bbdb->meta} WHERE object_type = 'bb_post' AND meta_key = 'rfp_rating' AND object_id = %d", $id ) );
+
+	$rating_id = isset( $rating->meta_id ) ? $rating->meta_id : null;
+	$rating_value = isset( $rating->meta_value ) ? $rating->meta_value : null;
+	$rating_new_value = $rating_value + $value;
+
+	$wpdb->query( $wpdb->prepare(
+		"REPLACE INTO {$bbdb->meta} ( meta_id, object_type, object_id, meta_key, meta_value )
+		VALUES (%d, %s, %d, %s, %d )",
+		$rating_id, 'bb_post', $id, 'rfp_rating', $rating_new_value
+	) );
 	
-	return $rating->meta_value + $value;
+	return $rating_new_value;
 }
 
 
@@ -280,7 +288,7 @@ function rfp_update_post_author_karma( $post_id, $direction ) {
 	global $wpdb, $bbdb;
 	
 	do_action( 'bbpress_init' );
-	$poster_id = $wpdb->get_var( $wpdb->prepare( "SELECT poster_id FROM {$bbdb->posts} WHERE post_id = {$post_id}" ) );
+	$poster_id = $wpdb->get_var( $wpdb->prepare( "SELECT poster_id FROM {$bbdb->posts} WHERE post_id = %d", $post_id ) );
 	$karma = get_user_meta( $poster_id, 'rfp_post_karma', 1 );
 	if ( $direction == 'pos' ) $value = 1; // abstract this
 	elseif ( $direction == 'neg' ) $value = -1;
@@ -294,7 +302,7 @@ function rfp_get_post_author_karma( $post_id ) {
 	global $wpdb, $bbdb;
 
 	do_action( 'bbpress_init' );
-	$poster_id =  $wpdb->get_var( $wpdb->prepare( "SELECT poster_id FROM {$bbdb->posts} WHERE post_id = {$post_id}" ) );
+	$poster_id =  $wpdb->get_var( $wpdb->prepare( "SELECT poster_id FROM {$bbdb->posts} WHERE post_id = %d", $post_id ) );
 	$karma = get_user_meta( $poster_id, 'rfp_post_karma', 1 );
 
 	return $karma;
@@ -346,7 +354,7 @@ function rfp_calculate_relative_karma( $karma, $poster_id ) {
 	if ( !$karma_calc || $karma_calc == 'total' )
 		return intval( $karma );  // total karma - for quiet sites
 			
-	$count_posts = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT( poster_id ) FROM {$bbdb->posts} WHERE poster_id = {$poster_id}" ) ); // this calculation includes deleted posts... not sure if it shouldn't
+	$count_posts = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT( poster_id ) FROM {$bbdb->posts} WHERE poster_id = %d", $poster_id ) ); // this calculation includes deleted posts... not sure if it shouldn't
 	
 	if ( $karma_calc == 'average' ) {
 		return intval( $karma / ( $count_posts + 0.5 ) );  // average karma - for busy sites
@@ -369,6 +377,8 @@ function rfp_poster_karma( $karma ) {
 	// if karma is zero, or if karma should not be less than zero, return nada
 	if ( $karma == 0 || get_option( 'rfp_karma_never_minus' ) && $karma < 0 )
 		return;
+
+	$k = '';
 		
 	if ( $karma >= $rfp_karma[3] && $rfp_karma[3] != 0 ) $k = ' rfp-k4';
 	elseif ( $karma >= $rfp_karma[2] && $rfp_karma[2] != 0 ) $k = ' rfp-k3';
@@ -385,18 +395,13 @@ function rfp_poster_karma( $karma ) {
 
 // setting for the admin page
 function rfp_add_admin_menu() {
-	global $bp;
-	if ( !is_super_admin() )
-		return false;
-	require ( dirname( __FILE__ ) . '/admin.php' );
 	add_submenu_page( 'bp-general-settings', 'Rate Forum Posts', 'Rate Forum Posts', 'manage_options', 'rfp_admin', 'rfp_admin' );
 }
 add_action( is_multisite() ? 'network_admin_menu' : 'admin_menu', 'rfp_add_admin_menu', 20 );
 
+if ( is_admin() )
+	require ( dirname( __FILE__ ) . '/admin.php' );
 
 /*
 Thanks to Intense Debate for their thumb graphics and good layout. 
 */
-
-
-?>

@@ -123,6 +123,39 @@ class Jetpack_Comments extends Highlander_Comments_Base {
 		parent::setup_filters();
 
 		add_filter( 'comment_post_redirect', array( $this, 'capture_comment_post_redirect_to_reload_parent_frame' ), 100 );
+		add_filter( 'get_avatar',            array( $this, 'get_avatar' ), 10, 4 );
+	}
+
+	/**
+	 * Get the comment avatar from Gravatar, Twitter, or Facebook
+	 *
+	 * @since JetpackComments (1.4)
+	 * @param string $avatar Current avatar URL
+	 * @param string $comment Comment for the avatar
+	 * @param int $size Size of the avatar
+	 * @param string $default Not used
+	 * @return string New avatar
+	 */
+	public function get_avatar( $avatar, $comment, $size, $default ) {
+		if ( ! isset( $comment->comment_post_ID ) || ! isset( $comment->comment_ID ) ) {
+			// it's not a comment - bail
+			return $avatar;
+		}
+	
+		if ( false === strpos( $comment->comment_author_url, '/www.facebook.com/' ) && false === strpos( $comment->comment_author_url, '/twitter.com/' ) ) {
+			// It's neither FB nor Twitter - bail
+			return $avatar;
+		}
+	
+		// It's a FB or Twitter avatar
+		$foreign_avatar = get_comment_meta( $comment->comment_ID, 'hc_avatar', true );
+		if ( empty( $foreign_avatar ) ) {
+			// Can't find the avatar details - bail
+			return $avatar;
+		}
+	
+		// Return the FB or Twitter avatar
+		return preg_replace( '#src=([\'"])[^\'"]+\\1#', 'src=\\1' . esc_url( $this->photon_avatar( $foreign_avatar, $size ) ) . '\\1', $avatar );
 	}
 
 	/** Output Methods ********************************************************/
@@ -214,8 +247,10 @@ class Jetpack_Comments extends Highlander_Comments_Base {
 		?>
 
 		<div id="respond">
-			<div id="cancel-comment-reply-link" style="display:none; float:right;"><a href="#"><?php echo esc_html( __( 'Cancel Reply', 'jetpack' ) ); ?></a></div>
-			<iframe src="<?php echo esc_url( $url ); ?>" allowtransparency="<?php echo $transparent; ?>" style="width:100%; height: <?php echo $height; ?>px;border:0px;" frameBorder="0" scrolling="no" name="jetpack_remote_comment" id="jetpack_remote_comment"></iframe>
+			<div id="commentform">
+				<div id="cancel-comment-reply-link" style="display:none; float:right;"><a href="#"><?php echo esc_html( __( 'Cancel Reply', 'jetpack' ) ); ?></a></div>
+				<iframe src="<?php echo esc_url( $url ); ?>" allowtransparency="<?php echo $transparent; ?>" style="width:100%; height: <?php echo $height; ?>px;border:0px;" frameBorder="0" scrolling="no" name="jetpack_remote_comment" id="jetpack_remote_comment"></iframe>
+			</div>
 		</div>
 
 		<?php // Below is required for comment reply JS to work ?>

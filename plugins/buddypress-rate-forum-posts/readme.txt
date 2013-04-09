@@ -2,15 +2,15 @@
 Contributors: dwenaus
 Donate link: http://www.bluemandala.com/plugins/
 Tags: buddypress, rate, rating, forum, forums, group, groups, karma, points, reputation, post rating, bp
-Requires at least: 3.0 (BP 1.2.4)
-Tested up to: 3.3 (BP 1.5.2)
+Requires at least: WP 3.0 (BP 1.2.4)
+Tested up to: WP 3.5.1 (BP 1.6.5)
 Stable tag: trunk
 
-Users can rate forum posts in BuddyPress. Good posts are highlighted and poor posts diminished. Highlighted karma points shown for each user.  
+Users can rate group forum posts in BuddyPress. Good posts are highlighted and poor posts diminished. Highlighted karma points shown for each user.
 
 == Description ==
 
-BuddyPress 1.5.2 compatible. Users can rate forum posts in BuddyPress. Good posts are highlighted and poor posts diminished. Highlighted karma points shown for each user. 
+BuddyPress 1.6 compatible. Users can rate forum posts in BuddyPress. Good posts are highlighted and poor posts diminished. Highlighted karma points shown for each user. Only works with forums for groups; not compatible with site wide forums.
 
 Features & Options:
 *	Post rating and responses via ajax.
@@ -29,15 +29,9 @@ Thanks to Intense Debate for their thumb graphics and good layout.
 
 == Installation ==
 
-1. Upload `bp-rate-forum-posts` folder to the `/wp-content/plugins/` directory
-1. Activate the plugin through the 'Plugins' menu in WordPress
+1. Ensure you are using forums for groups and not site-wide forums
 1. Begin rating posts! (Note that only system admins can rate posts as much as they want, others can only rate once.)
-1. Optionally edit plugin settings in the wordpress backend under BuddyPress->Rate Forum Posts. 
-
-== Frequently Asked Questions ==
-
-= How can I get feature XYZ implemented? =
-Contact me at deryk@bluemandala.com for a quote. I'll usually get around to it in a day or two. 
+1. Optionally edit plugin settings in the wordpress admin under BuddyPress->Rate Forum Posts.
 
 == Screenshots ==
 
@@ -45,6 +39,9 @@ Contact me at deryk@bluemandala.com for a quote. I'll usually get around to it i
 2. A glimpse of the back end admin options
 
 == Changelog ==
+
+= 1.7 =
+*	compatible with BuddyPress 1.6, fixed bug where Thank you said Thank you0. Fixed $wpdb->prepare warnings, fixed other php debug warnings, fixed admin url for multisite network admin.
 
 = 1.6.6 =
 *	compatible with BuddyPress 1.5, user rating history bug fix
