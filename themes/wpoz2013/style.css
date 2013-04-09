@@ -1,0 +1,11 @@
+/*
+Theme Name: WPAustralia.org BuddyPress Child Theme 2013
+Theme URI: http://www.wpaustralia.org/
+Description: A new child theme for WPAustralia
+Version: 0.1
+Author: Bronson Quick
+Author URI: http://www.wpaustralia.org/
+Template: onecommunity
+Tags: buddypress
+*/
+@import "../onecommunity/style.css";
