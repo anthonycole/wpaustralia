@@ -11,15 +11,85 @@ Tags: buddypress
 @import "../onecommunity/style.css";
 
 body {
-	background-color: #191a4a;
+	background: transparent 0 0 url("images/bg.jpg") fixed;
 }
+
+#logo {
+	margin-left: 45px;
+}
+
 #main {
 	background-color: #f4f4f4;
 }
 
+#content {
+	padding: 3em;
+	width: 760px;
+}
+
+#frontpage-info-big {
+	font-size: 2em;
+	margin-bottom: 0.25em;
+	color: #84a12b;
+	font-weight: bold;
+}
+#frontpage-info {
+	margin-bottom: 20px;
+}
+
 nav a {
 	color: #fff;
-	text-shadow: 1px 1px 0 #b90103;
+	text-shadow: 1px 1px 0 #333;
 	font-weight: bold;
 	font-size: 1.2em;
+}
+.frontpage .front-box ul li.forum-lastposts .activity-content-details,
+.frontpage .front-box ul li.forum-lastposts .activity-content-details a {
+	font-size: 1.2em;
+	line-height:  1.5;
+}
+.frontpage .front-box ul li.forum-lastposts .activity-content {
+	padding: 1em 1.5em 1.5em 1.5em;
+	width: 310px;
+}
+.sidebar-box a {
+	font-size: 1.2em;
+	line-height: 1.7;
+}
+.sidebar-box li {
+	padding-top: 0;
+}
+footer {
+	text-align: center;
+	color: #fff;
+	border: 0;
+	padding-bottom: 30px;
+}
+footer a {
+	color: #ff9801;
+}
+.frontpage-bottom-right {
+	width: 400px;
+}
+.tile {
+	background-color: #d54e21;
+}
+.tile2 {
+	background-color: #21759b;
+}
+.page-title {
+	background: #d54e21;
+	border: 0;
+	box-shadow: none;
+	line-height: 1.1;
+	letter-spacing: -7px;
+}
+ul li.forum-lastposts .activity-content {
+	background-color: #d54e21;
+}
+ul li.forum-lastposts .activity-content:hover {
+	background-color: #b94922;
+}
+.sidebar-title {
+	color: #48c3d1;
 }
