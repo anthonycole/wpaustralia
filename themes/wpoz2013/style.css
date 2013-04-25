@@ -9,3 +9,17 @@ Template: onecommunity
 Tags: buddypress
 */
 @import "../onecommunity/style.css";
+
+body {
+	background-color: #191a4a;
+}
+#main {
+	background-color: #f4f4f4;
+}
+
+nav a {
+	color: #fff;
+	text-shadow: 1px 1px 0 #b90103;
+	font-weight: bold;
+	font-size: 1.2em;
+}

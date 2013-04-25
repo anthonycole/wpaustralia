@@ -19,7 +19,6 @@ Template Name: Frontpage 1
 		<?php do_action( 'bp_after_header' ) ?>
 
 		<?php do_action( 'bp_before_container' ) ?>
-<div class="clear"> </div>
 
 <div class="frontpage">
 
@@ -39,7 +38,6 @@ Template Name: Frontpage 1
 </div><!--front-box-child ends-->
 </div><!--front-box ends-->
 
-<div class="clear"></div>
 
 <div class="front-box widget">
 <div class="front-box-title"><?php echo of_get_option('t-19', 'Popular Members' ); ?></div>
@@ -70,13 +68,11 @@ Template Name: Frontpage 1
 	<?php endif; ?>
 
 </div>
-<div class="clear"></div>
 </div>
 
 </div> <!-- frontpage-bottom-right -->
 
 </div><!-- .frontpage -->
-<div class="clear"> </div>
 </div><!-- #content -->
 
 </section>
