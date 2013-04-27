@@ -1,4 +1,8 @@
 -------------------------------------------------------------------------------------------------------------------
+Version 1.7.2
+    - Fixed issue with enqueueing the wrong css file on the preview page
+
+-------------------------------------------------------------------------------------------------------------------
 Version 1.7.1
     - Fixed conflict with minifiers because of @import statements in forms.css
 

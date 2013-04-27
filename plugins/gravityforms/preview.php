@@ -30,7 +30,7 @@ if(!GFCommon::current_user_can_any(array("gravityforms_edit_forms", "gravityform
         <link rel='stylesheet' href='<?php echo GFCommon::get_base_url() ?>/css/reset.css' type='text/css' />
         <link rel='stylesheet' href='<?php echo GFCommon::get_base_url() ?>/css/formreset.css' type='text/css' />
         <link rel='stylesheet' href='<?php echo GFCommon::get_base_url() ?>/css/datepicker.css' type='text/css' />
-        <link rel='stylesheet' href='<?php echo GFCommon::get_base_url() ?>/css/formsadmin.css' type='text/css' />
+        <link rel='stylesheet' href='<?php echo GFCommon::get_base_url() ?>/css/formsmain.css' type='text/css' />
         <link rel='stylesheet' href='<?php echo GFCommon::get_base_url() ?>/css/readyclass.css' type='text/css' />
         <link rel='stylesheet' href='<?php echo GFCommon::get_base_url() ?>/css/browsers.css' type='text/css' />
 

@@ -1,7 +1,7 @@
 <?php
 class GFCommon{
 
-    public static $version = "1.7.1";
+    public static $version = "1.7.2";
     public static $tab_index = 1;
     public static $errors = array();
 
