@@ -31,6 +31,7 @@ body {
 	font-size: 2em;
 	margin-bottom: 0.25em;
 	color: #84a12b;
+	font-weight: bold;
 }
 #frontpage-info {
 	margin-bottom: 20px;
@@ -39,7 +40,6 @@ body {
 nav a {
 	color: #fff;
 	text-shadow: 1px 1px 0 #333;
-	font-weight: bold;
 	font-size: 1.2em;
 }
 .frontpage .front-box ul li.forum-lastposts .activity-content-details,
