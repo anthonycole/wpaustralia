@@ -41,8 +41,8 @@ nav ul ul { top:26px; }
 	<?php do_action( 'bp_before_header' ) ?>
 	<div id="header-very-top">
 	<nav>
-				
-			<?php 
+
+			<?php
 			wp_nav_menu( array(
 			 'theme_location' => 'primary-menu',
 			 'container' =>false,
@@ -61,7 +61,7 @@ nav ul ul { top:26px; }
 
 	<div id="navigation-320">
 	<form name="site-menu" action="" method="post">
-		<?php 	
+		<?php
 		wp_nav_menu_select(
     		array(
        			'theme_location' => 'select-menu'
@@ -73,10 +73,12 @@ nav ul ul { top:26px; }
 
 
 	<div id="top-bar-right">
-	 	<?php get_search_form(); ?> 
+	 	<?php get_search_form(); ?>
         	</div><!--top-bar-right ends-->
 
-	</div><!-- #header-very-top -->	
+	</div><!-- #header-very-top -->
+
+<div class="clear"></div>
 
 <div id="main">
 
@@ -103,14 +105,14 @@ nav ul ul { top:26px; }
 				<div class="tile-logout"><a href="<?php echo wp_logout_url( bp_get_root_domain() ) ?>"><?php _e( 'Log Out', 'buddypress' ) ?></a></div>
 				<div class="tile-messages"><a href="<?php echo bp_loggedin_user_domain() ?>"><?php echo messages_get_unread_count(); ?></a></div>
 			</div>
-		
+
 		<?php else : ?>
 
 			<div id="tile-user">
 				<div class="tile-avatar"><img src="<?php echo get_stylesheet_directory_uri(); ?>/images/avatar.gif" alt="Avatar" width="88" height="88" /></div>
 				<div class="tile-username"><?php echo of_get_option('t-7', 'Hello' ); ?><br /><?php echo of_get_option('t-22', 'Guest' ); ?></div>
 				<span class="tile-title"><a href="<?php echo home_url(); ?>/login"><?php _e( 'Log In', 'buddypress' ); ?></a> <?php if ( bp_get_signup_allowed() ) : ?><span class="tile-register"><?php echo of_get_option('t-6', 'or' ); ?>&nbsp;<?php printf( __( '<a href="%s" title="Create an account">Sign Up</a>', 'buddypress' ), site_url( bp_get_signup_slug() . '/' ) ) ?></span><?php endif; ?></span>
-			</div> 
+			</div>
 
 	<?php endif; ?>
 </div><!-- .tile2 -->
