@@ -31,7 +31,6 @@ body {
 	font-size: 2em;
 	margin-bottom: 0.25em;
 	color: #84a12b;
-	font-weight: bold;
 }
 #frontpage-info {
 	margin-bottom: 20px;
@@ -92,4 +91,7 @@ ul li.forum-lastposts .activity-content:hover {
 }
 .sidebar-title {
 	color: #48c3d1;
+}
+nav ul li ul li {
+	height: auto;
 }
