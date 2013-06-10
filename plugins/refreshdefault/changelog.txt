@@ -1,0 +1,4 @@
+30/04/2013
+----------
+- Removed border radius
+- Removed gradients

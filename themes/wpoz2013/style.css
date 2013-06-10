@@ -23,7 +23,7 @@ body {
 }
 
 #content {
-	padding: 3em;
+	padding: 2em 3em;
 	width: 760px;
 }
 
@@ -94,4 +94,40 @@ ul li.forum-lastposts .activity-content:hover {
 }
 nav ul li ul li {
 	height: auto;
+}
+.bp-user div#item-header div#item-header-content {
+	width: 575px;
+}
+div.item-list-tabs ul li a, div.item-list-tabs ul li span {
+	padding: 3px 4px;
+}
+#mytabs,
+#mytabs2 {
+	margin-top: 0;
+}
+.twitter-follow-button {
+	margin-top: 5px;
+}
+.like,
+.unlike,
+.view-likes,
+.acomment-reply,
+.acomment-delete,
+.spam-activity-comment
+{
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	color: #777;
+	cursor: pointer;
+	font: normal 12px/20px Arial, Tahoma, Verdana, sans-serif;
+	outline: none;
+	padding: 4px 10px;
+	text-align: center;
+	text-decoration: none;
+	line-height: 14px;
+}
+
+a.bp-secondary-action {
+	padding: 4px 10px;
+	font-size: 12px;
 }

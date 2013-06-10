@@ -10,7 +10,7 @@
 	
 <footer>
 	
-Proudly powered by <a href="http://www.wordpress.org" title="WordPress">WordPress</a> and <a href="http://www.buddypress.org" title="BuddyPress">BuddyPress</a>
+A home for the members of the Australian WordPress community :)
 
 </footer>
 

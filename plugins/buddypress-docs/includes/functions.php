@@ -157,7 +157,7 @@ function bp_docs_get_item_term_id( $item_id, $item_type, $item_name = '' ) {
 		}
 
 		$item_term_args = apply_filters( 'bp_docs_item_term_values', array(
-			'description' => sprintf( __( 'Docs associated with the %1$s %2$s', 'bp-docs' ), $item_type, $item_name ),
+			'description' => sprintf( _x( 'Docs associated with the %1$s %2$s', 'Description for the associated-item taxonomy term. Of the form "Docs associated with the [item-type] [item-name]" - item-type is group, user, etc', 'bp-docs' ), $item_type, $item_name ),
 			'slug'        => $item_term_slug,
 		) );
 
@@ -258,6 +258,11 @@ function bp_docs_user_can( $action = 'edit', $user_id = false, $doc_id = false )
 	$need_doc_ids_actions = apply_filters( 'bp_docs_need_doc_ids_actions', array( 'edit', 'manage', 'view_history', 'read', 'read_comments', 'post_comments' ) );
 
 	$doc_id = false;
+
+	// Grant all permissions on documents being created
+	if ( false === $doc_id && bp_docs_is_doc_create() ) {
+		return true;
+	}
 
 	if ( in_array( $action, $need_doc_ids_actions ) ) {
 		if ( !$doc_id ) {
@@ -365,7 +370,7 @@ function bp_docs_update_doc_count( $item_id = 0, $item_type = '' ) {
 			break;
 
 		case 'user' :
-			bp_update_user_meta( $item_id, 'bp_docs_count', $doc_count );
+			update_user_meta( $item_id, 'bp_docs_count', $doc_count );
 			break;
 
 		default :
@@ -701,4 +706,17 @@ function bp_docs_check_post_lock( $post_id ) {
 	if ( $time && $time > time() - $time_window && $user != get_current_user_id() )
 		return $user;
 	return false;
+}
+
+function bp_docs_get_doc_ids_accessible_to_current_user() {
+	global $wpdb;
+
+	// Direct query for speeeeeeed
+	$exclude = bp_docs_access_query()->get_doc_ids();
+	if ( empty( $exclude ) ) {
+		$exclude = array( 0 );
+	}
+	$exclude_sql = '(' . implode( ',', $exclude ) . ')';
+	$items_sql = $wpdb->prepare( "SELECT ID FROM $wpdb->posts WHERE post_type = %s AND ID NOT IN $exclude_sql", bp_docs_get_post_type_name() );
+	return $wpdb->get_col( $items_sql );
 }
