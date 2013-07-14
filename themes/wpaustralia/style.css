@@ -137,8 +137,15 @@ p.comment-subscription-form {
 	margin-bottom: 0;
 }
 a.acomment-delete,
-a.spam-activity-comment {
+a.spam-activity-comment,
+a.acomment-reply,
+a.like,
+a.view-likes {
 	padding: 4px 10px;
+}
+a.like,
+a.view-likes {
+	font-size: 11px;
 }
 .acomment-options a {
 	color: #666;
