@@ -16,6 +16,9 @@ body {
 	line-height: 1.714285714;
 	color: #444;
 }
+input, textarea, keygen, select, button, isindex {
+	font-family: "Open Sans", Arial, Tahoma, Verdana, sans-serif;
+}
 p {
 	margin: 0 0 24px;
 	margin: 0 0 1.714285714rem;
@@ -48,11 +51,26 @@ p {
 
 div#container {
 	position: inherit;
+	border-radius: 0;
 }
-
+#whats-new-options {
+	overflow: hidden;
+}
+form#whats-new-form textarea {
+	border-radius: 0;
+}
 div.item-list-tabs ul li a {
 	height: auto;
 }
+
+#respond {
+	border-radius: 0;
+}
+
+button, a.button, input[type=submit], input[type=button], input[type=reset], ul.button-nav li a, div.generic-button a, .comment-reply-link {
+	border-radius: 0;
+}
+
 .like,
 .unlike,
 .view-likes,
@@ -157,7 +175,10 @@ ul#nav ul li:nth-child(even) {
 h1, h2, h3, h4, h5, h6 {
 	line-height: 1.3em;
 }
-
+.activity-list li.load-more {
+	border-radius: 0;
+	text-decoration: none;
+}
 @media all and (min-width: 0px) and (max-width: 600px) {
 	div.bbp-topic-header,
 	div.bbp-reply-header,
