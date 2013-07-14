@@ -13,6 +13,13 @@ class WP_Job_Manager_Post_Types {
 		add_action( 'job_manager_check_for_expired_jobs', array( $this, 'check_for_expired_jobs' ) );
 		add_action( 'pending_to_publish', array( $this, 'set_expirey' ) );
 		add_action( 'preview_to_publish', array( $this, 'set_expirey' ) );
+
+		add_filter( 'the_job_description', 'wptexturize'        );
+		add_filter( 'the_job_description', 'convert_smilies'    );
+		add_filter( 'the_job_description', 'convert_chars'      );
+		add_filter( 'the_job_description', 'wpautop'            );
+		add_filter( 'the_job_description', 'shortcode_unautop'  );
+		add_filter( 'the_job_description', 'prepend_attachment' );
 	}
 
 	/**
@@ -176,7 +183,7 @@ class WP_Job_Manager_Post_Types {
 				'hierarchical' 			=> false,
 				'rewrite' 				=> $rewrite,
 				'query_var' 			=> true,
-				'supports' 				=> array( 'title', 'editor' ),
+				'supports' 				=> array( 'title', 'editor', 'custom-fields' ),
 				'has_archive' 			=> $has_archive,
 				'show_in_nav_menus' 	=> false
 			) )
@@ -191,7 +198,7 @@ class WP_Job_Manager_Post_Types {
 		 * Post status
 		 */
 		register_post_status( 'expired', array(
-			'label'                     => _x( 'Expired', 'job_listing' ),
+			'label'                     => _x( 'Expired', 'job_listing', 'job_manager' ),
 			'public'                    => true,
 			'exclude_from_search'       => false,
 			'show_in_admin_all_list'    => true,
@@ -250,11 +257,11 @@ class WP_Job_Manager_Post_Types {
 			)
 		);
 
-		if ( $_GET['job_category'] ) {
+		if ( $_GET['job_categories'] ) {
 			$args['tax_query'][] = array(
 				'taxonomy' => 'job_listing_category',
 				'field'    => 'slug',
-				'terms'    => array( sanitize_title( $_GET['job_category'] ), 0 )
+				'terms'    => explode( ',', sanitize_text_field( $_GET['job_categories'] ) ) + array( 0 )
 			);
 		}
 

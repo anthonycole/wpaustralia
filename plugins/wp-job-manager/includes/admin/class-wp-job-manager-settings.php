@@ -25,7 +25,7 @@ class WP_Job_Manager_Settings {
 	 * @return void
 	 */
 	protected function init_settings() {
-		$this->settings = apply_filters( 'wp_job_manager_settings',
+		$this->settings = apply_filters( 'job_manager_settings',
 			array(
 				'job_listings' => array(
 					__( 'Job Listings', 'job_manager' ),
@@ -63,7 +63,7 @@ class WP_Job_Manager_Settings {
 							'std' 		=> '1',
 							'label' 	=> __( 'Account creation', 'job_manager' ),
 							'cb_label'  => __( 'Allow account creation', 'job_manager' ),
-							'desc'		=> __( 'If enable, non-logged in users will be able to create an account by entering their email address on the job submission form.', 'job_manager' ),
+							'desc'		=> __( 'If enabled, non-logged in users will be able to create an account by entering their email address on the job submission form.', 'job_manager' ),
 							'type'      => 'checkbox'
 						),
 						array(
@@ -150,8 +150,9 @@ class WP_Job_Manager_Settings {
 						foreach ( $section[1] as $option ) {
 
 							$placeholder = ( ! empty( $option['placeholder'] ) ) ? 'placeholder="' . $option['placeholder'] . '"' : '';
+							$class = ! empty( $option['class'] ) ? $option['class'] : '';
 
-							echo '<tr valign="top"><th scope="row"><label for="setting-' . $option['name'] . '">' . $option['label'] . '</a></th><td>';
+							echo '<tr valign="top" class="' . $class . '"><th scope="row"><label for="setting-' . $option['name'] . '">' . $option['label'] . '</a></th><td>';
 
 							if ( ! isset( $option['type'] ) ) $option['type'] = '';
 

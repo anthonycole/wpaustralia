@@ -14,14 +14,106 @@ class WP_Job_Manager_CPT {
 	 * @return void
 	 */
 	public function __construct() {
-		add_action( "restrict_manage_posts", array( $this, "jobs_by_category" ) );
 		add_filter( 'enter_title_here', array( $this, 'enter_title_here' ), 1, 2 );
 		add_filter( 'manage_edit-job_listing_columns', array( $this, 'columns' ) );
 		add_action( 'manage_job_listing_posts_custom_column', array( $this, 'custom_columns' ), 2 );
 		add_filter( 'post_updated_messages', array( $this, 'post_updated_messages' ) );
+		add_action( 'admin_footer-edit.php', array( $this, 'add_bulk_actions' ) );
+		add_action( 'load-edit.php', array( $this, 'do_bulk_actions' ) );
+		add_action( 'admin_init', array( $this, 'approve_job' ) );
+		add_action( 'admin_notices', array( $this, 'approved_notice' ) );
+
+		if ( get_option( 'job_manager_enable_categories' ) )
+			add_action( "restrict_manage_posts", array( $this, "jobs_by_category" ) );
 
 		foreach ( array( 'post', 'post-new' ) as $hook )
 			add_action( "admin_footer-{$hook}.php", array( $this,'extend_submitdiv_post_status' ) );
+	}
+
+	/**
+	 * Edit bulk actions
+	 */
+	public function add_bulk_actions() {
+		global $post_type;
+
+		if ( $post_type == 'job_listing' ) {
+			?>
+			<script type="text/javascript">
+		      jQuery(document).ready(function() {
+		        jQuery('<option>').val('approve_jobs').text('<?php _e( 'Approve Jobs', 'job_manager' )?>').appendTo("select[name='action']");
+		        jQuery('<option>').val('approve_jobs').text('<?php _e( 'Approve Jobs', 'job_manager' )?>').appendTo("select[name='action2']");
+		      });
+		    </script>
+		    <?php
+		}
+	}
+
+	/**
+	 * Do custom bulk actions
+	 */
+	public function do_bulk_actions() {
+		$wp_list_table = _get_list_table( 'WP_Posts_List_Table' );
+		$action        = $wp_list_table->current_action();
+
+		switch( $action ) {
+			case 'approve_jobs' :
+				check_admin_referer( 'bulk-posts' );
+
+				$post_ids      = array_map( 'absint', array_filter( (array) $_GET['post'] ) );
+				$approved_jobs = array();
+
+				if ( ! empty( $post_ids ) )
+					foreach( $post_ids as $post_id ) {
+						$job_data = array(
+							'ID'          => $post_id,
+							'post_status' => 'publish'
+						);
+						if ( get_post_status( $post_id ) == 'pending' && wp_update_post( $job_data ) )
+							$approved_jobs[] = $post_id;
+					}
+
+				wp_redirect( remove_query_arg( 'approve_jobs', add_query_arg( 'approved_jobs', $approved_jobs, admin_url( 'edit.php?post_type=job_listing' ) ) ) );
+				exit;
+			break;
+		}
+
+		return;
+	}
+
+	/**
+	 * Approve a single job
+	 */
+	public function approve_job() {
+		if ( ! empty( $_GET['approve_job'] ) && wp_verify_nonce( $_REQUEST['_wpnonce'], 'approve_job' ) && current_user_can( 'edit_post', $_GET['approve_job'] ) ) {
+			$post_id = absint( $_GET['approve_job'] );
+			$job_data = array(
+				'ID'          => $post_id,
+				'post_status' => 'publish'
+			);
+			wp_update_post( $job_data );
+			wp_redirect( remove_query_arg( 'approve_job', add_query_arg( 'approved_jobs', $post_id, admin_url( 'edit.php?post_type=job_listing' ) ) ) );
+			exit;
+		}
+	}
+
+	/**
+	 * Show a notice if we did a bulk action or approval
+	 */
+	public function approved_notice() {
+		 global $post_type, $pagenow;
+
+		if ( $pagenow == 'edit.php' && $post_type == 'job_listing' && ! empty( $_REQUEST['approved_jobs'] ) ) {
+			$approved_jobs = $_REQUEST['approved_jobs'];
+			if ( is_array( $approved_jobs ) ) {
+				$approved_jobs = array_map( 'absint', $approved_jobs );
+				$titles        = array();
+				foreach ( $approved_jobs as $job_id )
+					$titles[] = get_the_title( $job_id );
+				echo '<div class="updated"><p>' . sprintf( __( '%s approved', 'job_manager' ), '&quot;' . implode( '&quot;, &quot;', $titles ) . '&quot;' ) . '</p></div>';
+			} else {
+				echo '<div class="updated"><p>' . sprintf( __( '%s approved', 'job_manager' ), '&quot;' . get_the_title( $approved_jobs ) . '&quot;' ) . '</p></div>';
+			}
+		}
 	}
 
 	/**
@@ -37,7 +129,7 @@ class WP_Job_Manager_CPT {
 	public function jobs_by_category( $show_counts = 1, $hierarchical = 1, $show_uncategorized = 1, $orderby = '' ) {
 		global $typenow, $wp_query;
 
-	    if ( $typenow != 'job_listing' )
+	    if ( $typenow != 'job_listing' || ! taxonomy_exists( 'job_listing_category' ) )
 	    	return;
 
 		include_once( 'class-wp-job-manager-category-walker.php' );
@@ -58,7 +150,8 @@ class WP_Job_Manager_CPT {
 
 		$terms = get_terms( 'job_listing_category', $r );
 
-		if (!$terms) return;
+		if ( ! $terms )
+			return;
 
 		$output  = "<select name='job_listing_category' id='dropdown_job_listing_category'>";
 		$output .= '<option value="" ' .  selected( isset( $_GET['job_listing_category'] ) ? $_GET['job_listing_category'] : '', '', false ) . '>'.__( 'Select a category', "job_manager" ).'</option>';
@@ -168,8 +261,10 @@ class WP_Job_Manager_CPT {
 					echo '<span class="job-type ' . $type->slug . '">' . $type->name . '</span>';
 			break;
 			case "position" :
-				edit_post_link( $post->post_title, '<strong>', '</strong>', $post->ID );
-				echo '<span class="location">' . get_the_job_location( $post ) . '</span>';
+				edit_post_link( '#' . $post->ID . ' &ndash; ' . $post->post_title, '<strong>', '</strong>', $post->ID );
+				echo '<span class="location">';
+				the_job_location( $post );
+				echo '</span>';
 			break;
 			case "company" :
 				the_company_logo();
@@ -186,7 +281,7 @@ class WP_Job_Manager_CPT {
 				if ( ! $terms = get_the_term_list( $post->ID, $column, '', ', ', '' ) ) echo '<span class="na">&ndash;</span>'; else echo $terms;
 			break;
 			case "status" :
-				echo ucwords( $post->post_status );
+				echo get_the_job_status( $post );
 			break;
 			case "filled" :
 				if ( is_position_filled( $post ) ) echo '&#10004;'; else echo '&ndash;';
@@ -203,6 +298,13 @@ class WP_Job_Manager_CPT {
 			break;
 			case "job_actions" :
 				$admin_actions           = array();
+				if ( $post->post_status == 'pending' ) {
+					$admin_actions['approve']   = array(
+						'action'  => 'approve',
+						'name'    => __( 'Approve', 'job_manager' ),
+						'url'     =>  wp_nonce_url( add_query_arg( 'approve_job', $post->ID ), 'approve_job' )
+					);
+				}
 				if ( $post->post_status !== 'trash' ) {
 					$admin_actions['view']   = array(
 						'action'  => 'view',
@@ -221,7 +323,7 @@ class WP_Job_Manager_CPT {
 					);
 				}
 
-				$admin_actions = apply_filters( 'wp_job_manager_admin_actions', $admin_actions, $post );
+				$admin_actions = apply_filters( 'job_manager_admin_actions', $admin_actions, $post );
 
 				foreach ( $admin_actions as $action ) {
 					$image = isset( $action['image_url'] ) ? $action['image_url'] : JOB_MANAGER_PLUGIN_URL . '/assets/images/icons/' . $action['action'] . '.png';

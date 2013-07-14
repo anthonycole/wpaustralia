@@ -131,8 +131,8 @@
 			float: left;
 			vertical-align: middle;
 			small {
-				font-style: italic;
 				opacity: .75;
+				font-size: 0.83em;
 			}
 		}
 		div.field {
@@ -163,15 +163,17 @@
 			box-sizing: border-box;         /* Opera/IE 8+ */
 		}
 		small.description {
-			font-style: italic;
 			opacity: .75;
+			font-size: 0.83em;
+			margin: 1.2em 0 0 0;
+			display: block;
+			line-height: 1.2em;
 		}
 		.uploaded_image {
 			line-height: 64px;
 			font-style: italic;
 			margin: 0 0 1em 0;
 			img {
-				width: 64px;
 				height: 64px;
 				vertical-align: middle;
 				margin: 0 1em 0 0;
@@ -320,6 +322,9 @@ ul.job_listings {
 	}
 }
 .job-manager, .job_listing, .job-types {
+	.job-type {
+		color: @part-time;
+	}
 	.full-time {
 		color: @full-time;
 	}
@@ -394,6 +399,7 @@ ul.job_listings {
 		}
 		.job-type {
 			color: #fff;
+			background-color: @part-time;
 		}
 		.full-time {
 			background-color: @full-time;
@@ -512,7 +518,7 @@ ul.job_listings {
 				float: right;
 				padding-left: .5em;
 			}
-			&.search_category {
+			&.search_categories {
 				padding-top: .5em;
 				clear: both;
 				width: 100%;

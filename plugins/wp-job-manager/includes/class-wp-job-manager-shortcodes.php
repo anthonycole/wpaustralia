@@ -47,7 +47,7 @@ class WP_Job_Manager_Shortcodes {
 	 * Handles actions on job dashboard
 	 */
 	public function job_dashboard_handler() {
-		if ( ! empty( $_REQUEST['action'] ) && ! empty( $_REQUEST['_wpnonce'] ) && wp_verify_nonce( $_REQUEST['_wpnonce'], 'wp_job_manager_my_job_actions' ) ) {
+		if ( ! empty( $_REQUEST['action'] ) && ! empty( $_REQUEST['_wpnonce'] ) && wp_verify_nonce( $_REQUEST['_wpnonce'], 'job_manager_my_job_actions' ) ) {
 
 			$action = sanitize_title( $_REQUEST['action'] );
 			$job_id = absint( $_REQUEST['job_id'] );
@@ -93,7 +93,7 @@ class WP_Job_Manager_Shortcodes {
 						break;
 				}
 
-				do_action( 'wp_job_manager_my_job_do_action', $action, $job_id );
+				do_action( 'job_manager_my_job_do_action', $action, $job_id );
 
 			} catch ( Exception $e ) {
 				$this->job_dashboard_message = '<div class="job-manager-error">' . $e->getMessage() . '</div>';
@@ -165,12 +165,15 @@ class WP_Job_Manager_Shortcodes {
 			'orderby'         => 'date',
 			'order'           => 'desc',
 			'show_filters'    => true,
-			'show_categories' => false
+			'show_categories' => get_option( 'job_manager_enable_categories' ),
+			'categories'      => ''
 		), $atts ) );
 
-		if ( $show_filters ) {
+		$categories = array_filter( array_map( 'trim', explode( ',', $categories ) ) );
 
-			get_job_manager_template( 'job-filters.php', array( 'per_page' => $per_page, 'orderby' => $orderby, 'order' => $order, 'show_categories' => $show_categories ) );
+		if ( $show_filters && $show_filters !== 'false' ) {
+
+			get_job_manager_template( 'job-filters.php', array( 'per_page' => $per_page, 'orderby' => $orderby, 'order' => $order, 'show_categories' => $show_categories, 'categories' => $categories ) );
 
 			?><ul class="job_listings"></ul><a class="load_more_jobs" href="#" style="display:none;"><strong><?php _e( 'Load more job listings', 'job_manager' ); ?></strong></a><?php
 
@@ -185,6 +188,15 @@ class WP_Job_Manager_Shortcodes {
 				'order'               => $order,
 			);
 
+			if ( $categories )
+				$args['tax_query'] = array(
+					array(
+						'taxonomy' => 'job_listing_category',
+						'field'    => 'slug',
+						'terms'    => $categories
+					)
+				);
+
 			if ( get_option( 'job_manager_hide_filled_positions' ) == 1 )
 				$args['meta_query'] = array(
 					array(
@@ -194,7 +206,7 @@ class WP_Job_Manager_Shortcodes {
 					)
 				);
 
-			$jobs = new WP_Query( $args );
+			$jobs = new WP_Query( apply_filters( 'job_manager_output_jobs_args', $args ) );
 
 			if ( $jobs->have_posts() ) : ?>
 
