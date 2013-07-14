@@ -55,29 +55,30 @@ function wpoz_scripts_styles() {
 	 *
 	 */
 
-	/* translators: If there are characters in your language that are not supported
-	   by Open Sans, translate this to 'off'. Do not translate into your own language. */
-	if ( 'off' !== _x( 'on', 'Open Sans font: on or off', 'wpoz' ) ) {
-		$subsets = 'latin,latin-ext';
+/* translators: If there are characters in your language that are not supported
+	 by Open Sans, translate this to 'off'. Do not translate into your own language. */
+	$subsets = 'latin,latin-ext';
 
-		/* translators: To add an additional Open Sans character subset specific to your language, translate
-		   this to 'greek', 'cyrillic' or 'vietnamese'. Do not translate into your own language. */
-		$subset = _x( 'no-subset', 'Open Sans font: add new subset (greek, cyrillic, vietnamese)', 'wpoz' );
+	/* translators: To add an additional Open Sans character subset specific to your language, translate
+		 this to 'greek', 'cyrillic' or 'vietnamese'. Do not translate into your own language. */
+	$subset = _x( 'no-subset', 'Open Sans font: add new subset (greek, cyrillic, vietnamese)', 'wpoz' );
 
-		if ( 'cyrillic' == $subset )
-			$subsets .= ',cyrillic,cyrillic-ext';
-		elseif ( 'greek' == $subset )
-			$subsets .= ',greek,greek-ext';
-		elseif ( 'vietnamese' == $subset )
-			$subsets .= ',vietnamese';
+	if ( 'cyrillic' == $subset )
+		$subsets .= ',cyrillic,cyrillic-ext';
+	elseif ( 'greek' == $subset )
+		$subsets .= ',greek,greek-ext';
+	elseif ( 'vietnamese' == $subset )
+		$subsets .= ',vietnamese';
 
-		$protocol = is_ssl() ? 'https' : 'http';
-		$query_args = array(
-			'family' => 'Open+Sans:400italic,700italic,400,700',
-			'subset' => $subsets,
-		);
-		wp_enqueue_style( 'wpoz-fonts', add_query_arg( $query_args, "$protocol://fonts.googleapis.com/css" ), array(), null );
-	}
+	$protocol = is_ssl() ? 'https' : 'http';
+	$query_args = array(
+		'family' => 'Open+Sans:400italic,700italic,400,700',
+		'subset' => $subsets,
+	);
+	wp_enqueue_style( 'wpoz-fonts', add_query_arg( $query_args, "$protocol://fonts.googleapis.com/css" ), array(), null );
+
+
+
 
 }
 add_action( 'wp_enqueue_scripts', 'wpoz_scripts_styles' );
