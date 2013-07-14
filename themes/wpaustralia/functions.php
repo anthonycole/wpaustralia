@@ -81,3 +81,9 @@ function wpoz_scripts_styles() {
 
 }
 add_action( 'wp_enqueue_scripts', 'wpoz_scripts_styles' );
+
+function wpoz_moar_icons( $link ){
+	$link = str_replace( 'delete-activity', 'delete-activity genericon genericon-close', $link);
+	return $link;
+}
+add_filter( 'bp_get_activity_delete_link', 'wpoz_moar_icons' );

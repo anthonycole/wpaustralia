@@ -93,14 +93,9 @@ button, a.button, input[type=submit], input[type=button], input[type=reset], ul.
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed',GradientType=0 ); /* IE6-9 */
 	background: linear-gradient(top, #ffffff 0%,#ededed 100%); /* W3C */
 	border: 1px solid #ccc;
-	-moz-border-radius: 3px;
-	-webkit-border-radius: 3px;
-	border-radius: 3px;
 	color: #777;
 	cursor: pointer;
-	font: normal 12px/20px Arial, Tahoma, Verdana, sans-serif;
 	outline: none;
-	padding: 4px 10px;
 	text-align: center;
 	text-decoration: none;
 	line-height: 14px;
@@ -127,6 +122,10 @@ button, a.button, input[type=submit], input[type=button], input[type=reset], ul.
 	outline: none;
 	text-decoration: none;
 }
+div.activity-meta .like:before {
+	content: '\f418';
+}
+
 #respond .form-submit {
 	margin-bottom: 10px;
 }
@@ -190,14 +189,30 @@ h1, h2, h3, h4, h5, h6 {
 	text-decoration: none;
 	display: block;
 }
+
 div.activity-meta a {
 	font-family: 'Genericons', Arial, Tahoma, Verdana, sans-serif;
 	padding: 3px 7px 7px 7px;
-	font-size: 15px;
+	font-size: 14px;
 }
 a.bp-primary-action span,
 #reply-title small a span {
 	padding: 0 4px 4px 4px;
+}
+div.activity-comments form .ac-textarea,
+div.activity-comments form.ac-form {
+	border-radius: 0;
+}
+div.activity-meta .spam-activity:before {
+	content: '\f414';
+	margin-right: 5px;
+}
+.genericon-star:before {
+	line-height: 1.2;
+}
+div.activity-meta .like:before,
+div.activity-meta .spam-activity:before {
+	vertical-align: text-top;
 }
 @media all and (min-width: 0px) and (max-width: 600px) {
 	div.bbp-topic-header,
