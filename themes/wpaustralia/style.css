@@ -190,6 +190,15 @@ h1, h2, h3, h4, h5, h6 {
 	text-decoration: none;
 	display: block;
 }
+div.activity-meta a {
+	font-family: 'Genericons', Arial, Tahoma, Verdana, sans-serif;
+	padding: 3px 7px 7px 7px;
+	font-size: 15px;
+}
+a.bp-primary-action span,
+#reply-title small a span {
+	padding: 0 4px 4px 4px;
+}
 @media all and (min-width: 0px) and (max-width: 600px) {
 	div.bbp-topic-header,
 	div.bbp-reply-header,
