@@ -190,7 +190,10 @@ h1, h2, h3, h4, h5, h6 {
 	display: block;
 }
 
-div.activity-meta a {
+div.activity-meta a,
+a.bp-primary-action,
+#reply-title small a,
+a.bp-secondary-action {
 	font-family: 'Genericons', Arial, Tahoma, Verdana, sans-serif;
 	padding: 3px 7px 7px 7px;
 	font-size: 14px;
