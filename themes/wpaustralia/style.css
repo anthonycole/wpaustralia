@@ -136,17 +136,7 @@ div.activity-meta .like:before {
 p.comment-subscription-form {
 	margin-bottom: 0;
 }
-a.acomment-delete,
-a.spam-activity-comment,
-a.acomment-reply,
-a.like,
-a.view-likes {
-	padding: 4px 10px;
-}
-a.like,
-a.view-likes {
-	font-size: 11px;
-}
+
 .acomment-options a {
 	color: #666;
 }
@@ -169,6 +159,18 @@ ul#nav ul li:nth-child(even) {
 }
 #navigation ul#nav li a {
 	border-radius: 0;
+}
+#bbpress-forums ul.bbp-lead-topic,
+#bbpress-forums ul.bbp-topics,
+#bbpress-forums ul.bbp-forums,
+#bbpress-forums ul.bbp-replies,
+#bbpress-forums ul.bbp-search-results {
+	font-size: 14px;
+}
+
+#bbpress-forums .bbp-forum-info .bbp-forum-content,
+#bbpress-forums p.bbp-topic-meta {
+	font-size: 12px;
 }
 
 #bbpress-forums .bbp-reply-content li {
@@ -197,7 +199,17 @@ h1, h2, h3, h4, h5, h6 {
 	display: block;
 }
 
-div.activity-meta a {
+div.activity-meta a,
+a.bp-primary-action,
+#reply-title small a,
+a.bp-secondary-action,
+a.acomment-delete,
+a.spam-activity-comment,
+a.acomment-reply,
+a.like,
+a.view-likes,
+a.like,
+a.view-likes {
 	font-family: 'Genericons', Arial, Tahoma, Verdana, sans-serif;
 	padding: 3px 7px 7px 7px;
 	font-size: 14px;
