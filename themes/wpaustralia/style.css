@@ -3,7 +3,7 @@ Theme Name: WPAustralia.org BuddyPress Child theme
 Theme URI: http://www.wpaustralia.org/
 Description: A quick child theme for WPAustralia
 Version: 1.0
-Author: Bronson Quick, Japheth Thomson, Brent Shepherd
+Author: Bronson Quick, Japheth Thomson, Brent Shepherd, Anthony Hortin
 Author URI: http://www.wpaustralia.org/
 Template: bp-default
 Tags: buddypress, two-column, grey, dark
@@ -197,10 +197,7 @@ h1, h2, h3, h4, h5, h6 {
 	display: block;
 }
 
-div.activity-meta a,
-a.bp-primary-action,
-#reply-title small a,
-a.bp-secondary-action {
+div.activity-meta a {
 	font-family: 'Genericons', Arial, Tahoma, Verdana, sans-serif;
 	padding: 3px 7px 7px 7px;
 	font-size: 14px;
