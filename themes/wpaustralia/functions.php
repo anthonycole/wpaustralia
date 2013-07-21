@@ -87,3 +87,6 @@ function wpoz_moar_icons( $link ){
 	return $link;
 }
 add_filter( 'bp_get_activity_delete_link', 'wpoz_moar_icons' );
+
+define( 'BP_AVATAR_THUMB_WIDTH', 80 );
+define( 'BP_AVATAR_THUMB_HEIGHT', 80 );
