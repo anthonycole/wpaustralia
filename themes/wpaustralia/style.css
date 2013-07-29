@@ -124,7 +124,9 @@ button, a.button, input[type=submit], input[type=button], input[type=reset], ul.
 }
 div.activity-meta .like:before {
 	content: '\f418';
+	margin-right: 5px;
 }
+
 
 #respond .form-submit {
 	margin-bottom: 10px;
