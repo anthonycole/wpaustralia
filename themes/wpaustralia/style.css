@@ -346,3 +346,8 @@ div.item-list-tabs ul li.current a {
 		float: left;
 	}
 }
+@media only screen and (max-width: 320px) {
+	ul#activity-stream.item-list li div.activity-avatar {
+		display: inline !important;
+	}
+}
