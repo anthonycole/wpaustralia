@@ -351,3 +351,21 @@ div.item-list-tabs ul li.current a {
 		display: inline !important;
 	}
 }
+@media only screen and (max-width: 480px) {
+	div.item-list-tabs {
+		background-color: #efefef !important;
+	}
+	div.item-list-tabs ul li.selected a,
+	div.item-list-tabs ul li.current a {
+		background: #fff !important;
+	}
+	div.item-list-tabs ul li.loading a {
+		background: #fff url("images/ajax-loader.gif") 95% 50% no-repeat !important;
+	}
+	#activity-all:before,
+	#activity-friends:before,
+	#activity-favorites:before,
+	#activity-mentions:before {
+		padding: 3px 0 6px 3px;
+	}
+}
