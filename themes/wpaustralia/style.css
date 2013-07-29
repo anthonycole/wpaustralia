@@ -121,6 +121,7 @@ button, a.button, input[type=submit], input[type=button], input[type=reset], ul.
 	outline: none;
 	text-decoration: none;
 }
+
 .like:before,
 .unlike:before {
 	content: '\f418';
