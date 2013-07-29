@@ -121,7 +121,8 @@ button, a.button, input[type=submit], input[type=button], input[type=reset], ul.
 	outline: none;
 	text-decoration: none;
 }
-.like:before {
+.like:before,
+.unlike:before {
 	content: '\f418';
 	margin-right: 5px;
 }
@@ -213,7 +214,6 @@ a.spam-activity-comment,
 a.acomment-reply,
 a.like,
 a.view-likes,
-a.like,
 a.unlike,
 a.view-likes {
 	font-family: 'Genericons', Arial, Tahoma, Verdana, sans-serif;
@@ -291,7 +291,8 @@ div.item-list-tabs ul li.current a {
 .genericon-star:before {
 	line-height: 1.2;
 }
-.like:before {
+.like:before,
+.unlike:before {
 	position: relative;
 	top: 2px;
 }
