@@ -37,13 +37,13 @@
 
 		<?php if ( is_user_logged_in() && bp_activity_can_comment_reply( bp_activity_current_comment() ) ) : ?>
 
-			<a href="#acomment-<?php bp_activity_comment_id(); ?>" class="acomment-reply bp-primary-action" id="acomment-reply-<?php bp_activity_id(); ?>-from-<?php bp_activity_comment_id(); ?>"><?php _e( 'Reply', 'buddypress' ); ?></a>
+			<a href="#acomment-<?php bp_activity_comment_id(); ?>" class="acomment-reply bp-primary-action genericon genericon-reply" id="acomment-reply-<?php bp_activity_id(); ?>-from-<?php bp_activity_comment_id(); ?>"><?php _e( 'Reply', 'buddypress' ); ?></a>
 
 		<?php endif; ?>
 
 		<?php if ( bp_activity_user_can_delete() ) : ?>
 
-			<a href="<?php bp_activity_comment_delete_link(); ?>" class="delete acomment-delete confirm bp-secondary-action" rel="nofollow"><?php _e( 'Delete', 'buddypress' ); ?></a>
+			<a href="<?php bp_activity_comment_delete_link(); ?>" class="delete acomment-delete confirm bp-secondary-action genericon genericon-close" rel="nofollow"><?php _e( 'Delete', 'buddypress' ); ?></a>
 
 		<?php endif; ?>
 

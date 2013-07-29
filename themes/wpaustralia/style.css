@@ -98,7 +98,6 @@ button, a.button, input[type=submit], input[type=button], input[type=reset], ul.
 	outline: none;
 	text-align: center;
 	text-decoration: none;
-	line-height: 14px;
 	margin-right: 5px;
 }
 .like:hover,
@@ -122,11 +121,15 @@ button, a.button, input[type=submit], input[type=button], input[type=reset], ul.
 	outline: none;
 	text-decoration: none;
 }
-div.activity-meta .like:before {
+.like:before {
 	content: '\f418';
 	margin-right: 5px;
 }
 
+.acomment-reply.genericon-reply:before {
+	content: '\f412';
+	margin-right: 5px;
+}
 
 #respond .form-submit {
 	margin-bottom: 10px;
@@ -224,16 +227,68 @@ div.activity-comments form .ac-textarea,
 div.activity-comments form.ac-form {
 	border-radius: 0;
 }
-div.activity-meta .spam-activity:before {
+div.item-list-tabs {
+	margin: 25px -19px 25px -19px;
+	background-color: #efefef;
+}
+div.item-list-tabs ul li a,
+div.item-list-tabs ul li span {
+	display: inline;
+}
+div.item-list-tabs ul li {
+	margin: 0 0 0 5px;
+}
+div.item-list-tabs ul li.selected a,
+div.item-list-tabs ul li.current a {
+	-moz-border-radius-topleft: 0;
+	-webkit-border-top-left-radius: 0;
+	border-top-left-radius: 0;
+}
+#activity-all:before,
+#activity-friends:before,
+#activity-favorites:before,
+#activity-mentions:before {
+	font-family: 'Genericons', Arial, Tahoma, Verdana, sans-serif;
+	padding: 3px 0 4px 3px;
+	font-size: 23px;
+	position: relative;
+	top: 4px;
+}
+#activity-all:before {
+	content: '\f425';
+}
+#activity-friends:before {
+	content: '\f304';
+}
+#activity-favorites:before {
+	content: '\f408';
+}
+#activity-mentions:before {
+	content: '\f109';
+}
+#activity-all.selected:before,
+#activity-friends.selected:before,
+#activity-favorites.selected:before,
+#activity-mentions.selected:before {
+	background-color: #fff;
+	-moz-border-radius-topleft: 3px;
+	-webkit-border-top-left-radius: 3px;
+	border-top-left-radius: 3px;
+}
+
+.spam-activity:before,
+.spam-activity-comment:before {
 	content: '\f414';
-	margin-right: 5px;
+	margin-right: 7px;
+	position: relative;
+	top: 2px;
 }
 .genericon-star:before {
 	line-height: 1.2;
 }
-div.activity-meta .like:before,
-div.activity-meta .spam-activity:before {
-	vertical-align: text-top;
+.like:before {
+	position: relative;
+	top: 2px;
 }
 @media all and (min-width: 0px) and (max-width: 600px) {
 	div.bbp-topic-header,
