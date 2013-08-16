@@ -36,65 +36,16 @@ class WP_Job_Manager_Ajax {
 
 		$search_categories = array_filter( $search_categories );
 
-		$args = array(
-			'post_type'           => 'job_listing',
-			'post_status'         => 'publish',
-			'ignore_sticky_posts' => 1,
-			'offset'              => ( absint( $_POST['page'] ) - 1 ) * absint( $_POST['per_page'] ),
-			'posts_per_page'      => absint( $_POST['per_page'] ),
-			'orderby'             => sanitize_text_field( $_POST['orderby'] ),
-			'order'               => sanitize_text_field( $_POST['order'] ),
-			'tax_query'           => array(
-				array(
-					'taxonomy' => 'job_listing_type',
-					'field'    => 'slug',
-					'terms'    => $filter_job_types + array( 0 )
-				)
-			),
-			'meta_query'          => array()
-		);
-
-		if ( get_option( 'job_manager_hide_filled_positions' ) == 1 )
-			$args['meta_query'][] = array(
-				'key'     => '_filled',
-				'value'   => '1',
-				'compare' => '!='
-			);
-
-		// Location search
-		if ( $search_location )
-			$args['meta_query'][] = array(
-				'key'     => '_job_location',
-				'value'   => $search_location,
-				'compare' => 'LIKE'
-			);
-
-		// Keyword search - search meta as well as post content
-		if ( $search_keywords ) {
-			$post_ids = $wpdb->get_col( $wpdb->prepare( "
-			    SELECT DISTINCT post_id FROM {$wpdb->postmeta}
-			    WHERE meta_value LIKE '%%%s%%'
-			", $search_keywords ) );
-
-			$post_ids = $post_ids + $wpdb->get_col( $wpdb->prepare( "
-			    SELECT DISTINCT ID FROM {$wpdb->posts}
-			    WHERE post_title LIKE '%%%s%%'
-			    OR post_content LIKE '%%%s%%'
-			", $search_keywords, $search_keywords ) );
-
-			$args['post__in'] = $post_ids + array( 0 );
-		}
-
-		// Category search
-		if ( $search_categories ) {
-			$args['tax_query'][] = array(
-				'taxonomy' => 'job_listing_category',
-				'field'    => 'slug',
-				'terms'    => $search_categories + array( 0 )
-			);
-		}
-
-		$jobs = new WP_Query( $args );
+		$jobs = get_job_listings( array(
+			'search_location'   => $search_location,
+			'search_keywords'   => $search_keywords,
+			'search_categories' => $search_categories,
+			'job_types'         => $filter_job_types + array( 0 ),
+			'orderby'           => sanitize_text_field( $_POST['orderby'] ),
+			'order'             => sanitize_text_field( $_POST['order'] ),
+			'offset'            => ( absint( $_POST['page'] ) - 1 ) * absint( $_POST['per_page'] ),
+			'posts_per_page'    => absint( $_POST['per_page'] )
+		) );
 
 		$result = array();
 		$result['found_jobs'] = false;
@@ -118,7 +69,7 @@ class WP_Job_Manager_Ajax {
 		// Generate 'showing' text
 		$types = get_job_listing_types();
 
-		if ( sizeof( $filter_job_types ) > 0 && ( sizeof( $filter_job_types ) !== sizeof( $types ) || $search_keywords || $search_location || $search_categories ) ) {
+		if ( sizeof( $filter_job_types ) > 0 && ( sizeof( $filter_job_types ) !== sizeof( $types ) || $search_keywords || $search_location || $search_categories || apply_filters( 'job_manager_get_listings_custom_filter', false ) ) ) {
 			$showing_types = array();
 			$unmatched     = false;
 
@@ -158,19 +109,19 @@ class WP_Job_Manager_Ajax {
 
 			$showing_location  = $search_location ? sprintf( ' ' . __( 'located in &ldquo;%s&rdquo;', 'job_manager' ), $search_location ) : '';
 
-			$result['showing'] = $showing_jobs . $showing_location;
+			$result['showing'] = apply_filters( 'job_manager_get_listings_custom_filter_text', $showing_jobs . $showing_location );
 
 		} else {
 			$result['showing'] = '';
 		}
 
 		// Generate RSS link
-		$result['rss'] = get_job_listing_rss_link( array(
+		$result['rss'] = get_job_listing_rss_link( apply_filters( 'job_manager_get_listings_custom_filter_rss_args', array(
 			'type'           => implode( ',', $filter_job_types ),
 			'location'       => $search_location,
 			'job_categories' => implode( ',', $search_categories ),
 			's'              => $search_keywords,
-		) );
+		) ) );
 
 		$result['max_num_pages'] = $jobs->max_num_pages;
 

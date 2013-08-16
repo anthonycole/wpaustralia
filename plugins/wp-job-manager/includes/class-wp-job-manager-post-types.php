@@ -240,24 +240,28 @@ class WP_Job_Manager_Post_Types {
 			'post_status'         => 'publish',
 			'ignore_sticky_posts' => 1,
 			'posts_per_page'      => 10,
-			's'                   => sanitize_text_field( $_GET['s'] ),
-			'meta_query'  => array(
-				array(
-					'key'     => '_job_location',
-					'value'   => sanitize_text_field( $_GET['location'] ),
-					'compare' => 'LIKE'
-				)
-			),
-			'tax_query'           => array(
-				array(
-					'taxonomy' => 'job_listing_type',
-					'field'    => 'slug',
-					'terms'    => explode( ',', sanitize_text_field( $_GET['type'] ) ) + array( 0 )
-				)
-			)
+			's'                   => isset( $_GET['s'] ) ? sanitize_text_field( $_GET['s'] ) : '',
+			'meta_query'          => array(),
+			'tax_query'           => array()
 		);
 
-		if ( $_GET['job_categories'] ) {
+		if ( ! empty( $_GET['location'] ) ) {
+			$args['meta_query'][] = array(
+				'key'     => '_job_location',
+				'value'   => sanitize_text_field( $_GET['location'] ),
+				'compare' => 'LIKE'
+			);
+		}
+
+		if ( ! empty( $_GET['type'] ) ) {
+			$args['tax_query'][] = array(
+				'taxonomy' => 'job_listing_type',
+				'field'    => 'slug',
+				'terms'    => explode( ',', sanitize_text_field( $_GET['type'] ) ) + array( 0 )
+			);
+		}
+
+		if ( ! empty( $_GET['job_categories'] ) ) {
 			$args['tax_query'][] = array(
 				'taxonomy' => 'job_listing_category',
 				'field'    => 'slug',
@@ -265,7 +269,7 @@ class WP_Job_Manager_Post_Types {
 			);
 		}
 
-		query_posts( $args );
+		query_posts( apply_filters( 'job_feed_args', $args ) );
 
 		do_feed_rss2( false );
 	}

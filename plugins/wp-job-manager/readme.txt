@@ -3,8 +3,8 @@ Contributors: mikejolley
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=mike.jolley@me.com&currency_code=&amount=&return=&item_name=Buy+me+a+coffee+for+A+New+Job+Board+Plugin+for+WordPress
 Tags: job listing, job board, job, jobs, company
 Requires at least: 3.5
-Tested up to: 3.5
-Stable tag: 1.0.2
+Tested up to: 3.6
+Stable tag: 1.0.5
 
 Manage job listings from the WordPress admin panel, and allow users to post jobs directly to your site.
 
@@ -71,6 +71,19 @@ The manual installation method involves downloading the plugin and uploading it 
 6. Job listings in admin.
 
 == Changelog ==
+
+= 1.0.5 =
+* Added function to get listings by certain criteria.
+* Added ES translation.
+* Fix job feed when no args are present.
+
+= 1.0.4 =
+* More hooks in the submit process.
+* Hide apply button if url/email is unset.
+
+= 1.0.3 =
+* Some extra hooks in job-filters.php
+* Added a workaround for scripts which bork placeholders inside the job filters.
 
 = 1.0.2 =
 * Action in update_job_data() to allow saving of extra fields.

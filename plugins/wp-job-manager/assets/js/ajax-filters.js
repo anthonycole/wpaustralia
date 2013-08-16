@@ -2,8 +2,9 @@ jQuery(document).ready(function($) {
 
 	var xhr;
 
-	function update_job_listing_results( page, append, target ) {
+	$( '.job_listings' ).on( 'update_results', function( event, page, append ) {
 
+		var target  = $(this);
 		var form    = target.find( '.job_filters' );
 		var showing = target.find( '.showing_jobs' );
 		var results = target.find( '.job_listings' );
@@ -25,16 +26,29 @@ jQuery(document).ready(function($) {
 
 		var categories = form.find('select[name^=search_categories], input[name^=search_categories]').map(function () { return $(this).val(); }).get();
 
+		var keywords  = '';
+		var location  = '';
+		var $keywords = form.find('input[name=search_keywords]');
+		var $location = form.find('input[name=search_location]');
+
+		// Workaround placeholder scripts
+		if ( $keywords.val() != $keywords.attr( 'placeholder' ) )
+			keywords = $keywords.val();
+
+		if ( $location.val() != $location.attr( 'placeholder' ) )
+			location = $location.val();
+
 		var data = {
 			action: 			'job_manager_get_listings',
-			search_keywords: 	form.find('input[name=search_keywords]').val(),
-			search_location: 	form.find('input[name=search_location]').val(),
+			search_keywords: 	keywords,
+			search_location: 	location,
 			search_categories:  categories,
 			filter_job_type: 	filter_job_type,
 			per_page: 			form.find('input[name=per_page]').val(),
 			orderby: 			form.find('input[name=orderby]').val(),
 			order: 			    form.find('input[name=order]').val(),
-			page:               page
+			page:               page,
+			form_data:          form.serialize()
 		};
 
 		xhr = $.ajax( {
@@ -85,12 +99,12 @@ jQuery(document).ready(function($) {
 				}
 			}
 		} );
-	}
+	} );
 
 	$( '#search_keywords, #search_location, .job_types input, #search_categories' ).change( function() {
 		var target = $(this).closest( 'div.job_listings' );
 
-		update_job_listing_results( 1, false, target );
+		target.trigger( 'update_results', [ 1, false ] );
 	} ).change();
 
 	$( '.showing_jobs .reset' ).click( function() {
@@ -102,7 +116,8 @@ jQuery(document).ready(function($) {
 		form.find('select[name^=search_categories]').val('');
 		$('input[name="filter_job_type[]"]', form).attr('checked', 'checked');
 
-		update_job_listing_results( 1, false, target );
+		target.trigger( 'reset' );
+		target.trigger( 'update_results', [ 1, false ] );
 
 		return false;
 	} );
@@ -119,7 +134,7 @@ jQuery(document).ready(function($) {
 
 		$(this).data( 'page', ( page + 1 ) );
 
-		update_job_listing_results( page + 1, true, target );
+		target.trigger( 'update_results', [ page + 1, true ] );
 
 		return false;
 	} );
