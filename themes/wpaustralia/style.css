@@ -260,7 +260,11 @@ div.item-list-tabs ul li.current a {
 #just-me-personal-li:before,
 #public-personal-li:before,
 #edit-personal-li:before,
-#change-avatar-personal-li:before {
+#change-avatar-personal-li:before,
+#inbox-personal-li:before,
+#sentbox-personal-li:before,
+#compose-personal-li:before,
+#notices-personal-li:before {
 	font-family: 'Genericons', Arial, Tahoma, Verdana, sans-serif;
 	padding: 3px 0 4px 3px;
 	font-size: 23px;
@@ -292,6 +296,18 @@ div.item-list-tabs ul li.current a {
 }
 #change-avatar-personal-li:before {
 	content: '\f102';
+}
+#inbox-personal-li:before {
+	content: '\f410';
+}
+#sentbox-personal-li:before {
+	content: '\f441';
+}
+#compose-personal-li:before {
+	content: '\f411';
+}
+#notices-personal-li:before {
+	content: '\f414';
 }
 #activity-all.selected:before,
 #activity-friends.selected:before,
