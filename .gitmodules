@@ -25,3 +25,6 @@
 [submodule "plugins/unconfirmed"]
 	path = plugins/unconfirmed
 	url = git@github.com:boonebgorges/unconfirmed.git
+[submodule "plugins/wordpress-seo"]
+	path = plugins/wordpress-seo
+	url = git@github.com:Yoast/wordpress-seo.git
