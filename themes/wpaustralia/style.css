@@ -326,9 +326,13 @@ div.item-list-tabs ul li.current a {
 {
 	border: 0;
 }
+.item-list-tabs li.selected {
+	background-color: #fff;
+	padding-top: 3px;
+}
 div.item-list-tabs#subnav ul li.selected a,
 div.item-list-tabs#subnav ul li.current a,
-.item-list-tabs li.selected {
+div.item-list-tabs#subnav ul li.selected {
 	background-color: #eee;
 }
 #activity-friends-personal-li #activity-friends:before,
