@@ -19,3 +19,6 @@
 [submodule "plugins/bbpress-reply-by-email"]
 	path = plugins/bbpress-reply-by-email
 	url = git://github.com/rmccue/bbPress-Reply-by-Email.git
+[submodule "plugins/wp-job-manager"]
+	path = plugins/wp-job-manager
+	url = git@github.com:mikejolley/WP-Job-Manager.git
