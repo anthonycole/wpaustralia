@@ -267,7 +267,12 @@ div.item-list-tabs ul li.current a {
 #notices-personal-li:before,
 #friends-my-friends-personal-li:before,
 #requests-personal-li:before,
-#friends-my-friends-personal-li:before {
+#friends-my-friends-personal-li:before,
+#topics-personal-li:before,
+#replies-personal-li:before,
+#favorites-personal-li:before,
+#favorites-personal-li:before,
+#subscriptions-personal-li:before {
 	font-family: 'Genericons', Arial, Tahoma, Verdana, sans-serif;
 	padding: 3px 0 4px 3px;
 	font-size: 23px;
@@ -285,7 +290,8 @@ div.item-list-tabs ul li.current a {
 	content: '\f304';
 }
 #activity-favorites:before,
-#activity-favs-personal-li:before {
+#activity-favs-personal-li:before,
+#favorites-personal-li:before {
 	content: '\f408';
 }
 #activity-mentions:before {
@@ -317,6 +323,15 @@ div.item-list-tabs ul li.current a {
 }
 #requests-personal-li:before {
 	content: '\f427';
+}
+#topics-personal-li:before {
+	content: '\f444';
+}
+#replies-personal-li:before {
+	content: '\f412';
+}
+#subscriptions-personal-li:before {
+	content: '\f438';
 }
 #activity-all.selected:before,
 #activity-friends.selected:before,
