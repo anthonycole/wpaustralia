@@ -257,7 +257,10 @@ div.item-list-tabs ul li.current a {
 #activity-favorites:before,
 #activity-favs-personal-li:before,
 #activity-mentions:before,
-#just-me-personal-li:before {
+#just-me-personal-li:before,
+#public-personal-li:before,
+#edit-personal-li:before,
+#change-avatar-personal-li:before {
 	font-family: 'Genericons', Arial, Tahoma, Verdana, sans-serif;
 	padding: 3px 0 4px 3px;
 	font-size: 23px;
@@ -281,11 +284,21 @@ div.item-list-tabs ul li.current a {
 #activity-mentions:before {
 	content: '\f109';
 }
+#public-personal-li:before {
+	content: '\f403';
+}
+#edit-personal-li:before {
+	content: '\f411';
+}
+#change-avatar-personal-li:before {
+	content: '\f102';
+}
 #activity-all.selected:before,
 #activity-friends.selected:before,
 #activity-favorites.selected:before,
 #activity-mentions.selected:before,
 #just-me-personal-li.selected:before,
+#public-personal-li.selected:before,
 .item-list-tabs li.selected {
 	-moz-border-radius-topleft: 3px;
 	-webkit-border-top-left-radius: 3px;
@@ -293,7 +306,8 @@ div.item-list-tabs ul li.current a {
 	border-top: 1px solid #ddd;
 	border-left: 1px solid #ddd;
 }
-.item-list-tabs#subnav li.selected:first-child {
+.item-list-tabs#subnav li.selected:first-child,
+{
 	border: 0;
 }
 div.item-list-tabs#subnav ul li.selected a,
