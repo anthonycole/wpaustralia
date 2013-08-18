@@ -330,6 +330,9 @@ div.item-list-tabs ul li.current a {
 	background-color: #fff;
 	padding-top: 3px;
 }
+#subnav.item-list-tabs li.selected {
+	padding-top: 0;
+}
 div.item-list-tabs#subnav ul li.selected a,
 div.item-list-tabs#subnav ul li.current a,
 div.item-list-tabs#subnav ul li.selected {
