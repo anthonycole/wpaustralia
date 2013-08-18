@@ -272,7 +272,9 @@ div.item-list-tabs ul li.current a {
 #replies-personal-li:before,
 #favorites-personal-li:before,
 #favorites-personal-li:before,
-#subscriptions-personal-li:before {
+#subscriptions-personal-li:before,
+#general-personal-li:before,
+#notifications-personal-li:before {
 	font-family: 'Genericons', Arial, Tahoma, Verdana, sans-serif;
 	padding: 3px 0 4px 3px;
 	font-size: 23px;
@@ -332,6 +334,12 @@ div.item-list-tabs ul li.current a {
 }
 #subscriptions-personal-li:before {
 	content: '\f438';
+}
+#general-personal-li:before {
+	content: '\f100';
+}
+#notifications-personal-li:before {
+	content: '\f443';
 }
 #activity-all.selected:before,
 #activity-friends.selected:before,
