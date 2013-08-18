@@ -22,3 +22,6 @@
 [submodule "plugins/wp-job-manager"]
 	path = plugins/wp-job-manager
 	url = git@github.com:mikejolley/WP-Job-Manager.git
+[submodule "plugins/unconfirmed"]
+	path = plugins/unconfirmed
+	url = git@github.com:boonebgorges/unconfirmed.git
