@@ -392,6 +392,10 @@ div.item-list-tabs#subnav ul li.selected {
 	position: relative;
 	top: 2px;
 }
+.activity-list li .activity-inreplyto {
+	background-position: 25px 2px;
+	padding-left: 40px;
+}
 @media all and (min-width: 0px) and (max-width: 600px) {
 	div.bbp-topic-header,
 	div.bbp-reply-header,
