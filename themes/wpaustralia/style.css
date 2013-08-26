@@ -11,9 +11,9 @@ Tags: buddypress, two-column, grey, dark
 /* Note: BuddyPress is now so awesome that we don't even need to use an @import to get style.css from the parent :) */
 
 body {
-	font-family: "Open Sans", Arial, Tahoma, Verdana, sans-serif;
+	font-family: "PT Sans", Arial, Tahoma, Verdana, sans-serif;
 	font-size: 1em;
-	line-height: 1.714285714;
+	line-height: 1.4;
 	color: #444;
 }
 input, textarea, keygen, select, button, isindex {
@@ -167,17 +167,20 @@ ul#nav ul li:nth-child(even) {
 #navigation ul#nav li a {
 	border-radius: 0;
 }
+
 #bbpress-forums ul.bbp-lead-topic,
 #bbpress-forums ul.bbp-topics,
 #bbpress-forums ul.bbp-forums,
 #bbpress-forums ul.bbp-replies,
-#bbpress-forums ul.bbp-search-results {
-	font-size: 14px;
+#bbpress-forums ul.bbp-search-results,
+div.bbp-breadcrumb,
+div.bbp-topic-tags{
+	font-size: 1.3em;
 }
 
 #bbpress-forums .bbp-forum-info .bbp-forum-content,
 #bbpress-forums p.bbp-topic-meta {
-	font-size: 12px;
+	font-size: 1em;
 }
 
 #bbpress-forums .bbp-reply-content li {
