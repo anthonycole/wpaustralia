@@ -73,7 +73,7 @@ function wpoz_scripts_styles() {
 	);
 	wp_enqueue_style( 'wpoz-fonts', add_query_arg( $query_args, "$protocol://fonts.googleapis.com/css" ), array(), null );
 
-	wp_enqueue_style( 'wpoz-genericons', get_stylesheet_directory_uri() . '/genericons.css', '', '1.0', 'all' );
+	wp_enqueue_style( 'wpoz-genericons', get_stylesheet_directory_uri() . '/genericons.css', '', '1.1', 'all' );
 
 }
 add_action( 'wp_enqueue_scripts', 'wpoz_scripts_styles' );
