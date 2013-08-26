@@ -363,7 +363,7 @@ div.item-list-tabs ul li.current a {
 }
 .item-list-tabs li.selected {
 	background-color: #fff;
-	padding-top: 3px;
+	padding-top: 2px;
 }
 #subnav.item-list-tabs li.selected {
 	padding-top: 0;
