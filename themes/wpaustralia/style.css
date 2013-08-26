@@ -279,7 +279,7 @@ div.item-list-tabs ul li.current a {
 #general-personal-li:before,
 #notifications-personal-li:before {
 	font-family: 'Genericons', Arial, Tahoma, Verdana, sans-serif;
-	padding: 3px 0 4px 3px;
+	padding: 2px 0 4px 3px;
 	font-size: 23px;
 	line-height: 0;
 	position: relative;
